@@ -1,0 +1,31 @@
+[{
+        "id": 1,
+        "nombre": "Tour por el Centro Histórico",
+        "tipo": "cultural",
+        "descripcionBreve": "Recorre los principales puntos históricos de Xalapa.",
+        "descripcionLarga": "Un recorrido guiado que explora museos, calles antiguas y arquitectura emblemática.",
+        "duracion": "2.5 horas",
+        "precio": 350,
+        "imagen": "assets/tours/centro.jpg",
+        "galeria": [
+            "assets/tours/centro1.jpg",
+            "assets/tours/centro2.jpg"
+        ],
+        "mapa": "https://www.google.com/maps/embed?pb=..."
+    },
+
+    {
+        "id": 2,
+        "nombre": "Cascada de Texolo",
+        "tipo": "natural",
+        "descripcionBreve": "Una experiencia entre naturaleza, ríos y paisajes.",
+        "descripcionLarga": "Explora una de las cascadas más impresionantes de Veracruz con senderismo.",
+        "duracion": "4 horas",
+        "precio": 500,
+        "imagen": "assets/tours/texolo.jpg",
+        "galeria": [
+            "assets/tours/tex1.jpg",
+            "assets/tours/tex2.jpg"
+        ]
+    }
+]

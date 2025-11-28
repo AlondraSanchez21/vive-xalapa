@@ -1,0 +1,124 @@
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: #0c5f39;
+    color: white;
+}
+
+.filtros {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.filtros button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #e8e8e8;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filtros .activo {
+    background: #0c5f39;
+    color: white;
+}
+
+
+/* CARD LIST */
+
+.lista-tours {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+}
+
+.tour-card {
+    display: flex;
+    gap: 20px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #0001;
+    padding: 15px;
+}
+
+.tour-card img {
+    width: 260px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.tour-info {
+    flex: 1;
+}
+
+.tour-info h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.meta {
+    margin: 10px 0;
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.ver-btn {
+    padding: 10px 15px;
+    background: #0c5f39;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* MODAL */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0007;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 80px;
+}
+
+.modal {
+    width: 90%;
+    max-width: 700px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+}
+
+.cerrar {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.galeria img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}

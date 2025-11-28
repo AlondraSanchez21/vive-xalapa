@@ -1,0 +1,60 @@
+<!-- HERO -->
+<section class="hero">
+    <h1>Explora los Mejores Tours en Xalapa</h1>
+    <p>Experiencias culturales, naturales y de aventura.</p>
+</section>
+
+<!-- FILTROS -->
+<div class="filtros">
+    <button *ngFor="let t of tipos" (click)="filtrar(t)" [class.activo]="t === tipoActual">
+        {{ t | titlecase }}
+    </button>
+</div>
+
+<!-- LISTA DE TOURS -->
+<div class="lista-tours">
+
+    <div class="tour-card fade-in" *ngFor="let tour of filtrados">
+
+        <img class="tour-img" [src]="tour.imagen" alt="{{tour.nombre}}">
+
+        <div class="tour-info">
+            <h2>{{ tour.nombre }}</h2>
+
+            <p class="descripcion">
+                {{ tour.descripcionBreve }}
+            </p>
+
+            <div class="meta">
+                <span>⏱ {{ tour.duracion }}</span>
+                <span *ngIf="tour.precio">💲 {{ tour.precio }} MXN</span>
+            </div>
+
+            <button class="ver-btn" (click)="verDetalles(tour)">Ver más</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MODAL DETALLES -->
+<div class="modal-overlay" *ngIf="tourSeleccionado">
+    <div class="modal">
+
+        <button class="cerrar" (click)="cerrarModal()">✖</button>
+
+        <h2>{{ tourSeleccionado.nombre }}</h2>
+
+        <div class="galeria">
+            <img *ngFor="let img of tourSeleccionado.galeria" [src]="img">
+        </div>
+
+        <p>{{ tourSeleccionado.descripcionLarga }}</p>
+
+        <div class="mapa" *ngIf="tourSeleccionado.mapa">
+            <iframe width="100%" height="300" [attr.src]="tourSeleccionado.mapa" style="border:0;" loading="lazy">
+            </iframe>
+        </div>
+
+    </div>
+</div>

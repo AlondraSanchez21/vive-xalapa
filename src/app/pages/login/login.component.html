@@ -1,0 +1,38 @@
+<div class="login-card">
+    <button class="close-modal" id="closeLoginModal">✕</button>
+
+    <div class="icon-circle">
+        <img src="../images/logo.png" class="login-logo">
+    </div>
+
+    <!-- Tabs login / registro -->
+    <h2 *ngIf="showLogin">¡Bienvenido de nuevo!</h2>
+    <h2 *ngIf="!showLogin">Crea tu cuenta</h2>
+
+    <!-- LOGIN -->
+    <form *ngIf="showLogin" (ngSubmit)="login()">
+        <label>Correo electrónico</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="tu@email.com" required>
+
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required>
+
+        <button type="submit" class="btn-login">Iniciar sesión</button>
+        <p class="toggle-text">¿No tienes cuenta? <span class="toggle-link" (click)="toggleForm()">Regístrate</span></p>
+    </form>
+
+    <!-- REGISTRO -->
+    <form *ngIf="!showLogin" (ngSubmit)="register()">
+        <label>Nombre completo</label>
+        <input type="text" [(ngModel)]="name" name="name" placeholder="Tu nombre" required>
+
+        <label>Correo electrónico</label>
+        <input type="email" [(ngModel)]="email" name="emailReg" placeholder="tu@email.com" required>
+
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="passwordReg" name="passwordReg" placeholder="••••••••" required>
+
+        <button type="submit" class="btn-login">Registrarse</button>
+        <p class="toggle-text">¿Ya tienes cuenta? <span class="toggle-link" (click)="toggleForm()">Inicia sesión</span></p>
+    </form>
+</div>

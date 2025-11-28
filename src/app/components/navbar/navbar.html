@@ -1,0 +1,83 @@
+<header class="nav-wrapper">
+    <div class="nav-container">
+
+        <!-- LOGO -->
+        <div class="nav-left">
+            <a routerLink="">
+                <img src="assets/logo.svg" alt="ViveXalapa" class="brand-logo">
+            </a>
+        </div>
+
+        <!-- CENTER (desktop links) -->
+        <nav class="nav-center">
+            <div class="nav-item" (mouseenter)="openDescubrir()" (mouseleave)="closeDescubrir()">
+                <button class="nav-link">Descubrir
+          <span class="caret">▾</span>
+        </button>
+
+                <div class="dropdown-card" *ngIf="dropdownDescubrir">
+                    <ul>
+                        <li><a routerLink="/lugares">Lugares Turísticos</a></li>
+                        <li><a routerLink="/gastronomia">Gastronomía</a></li>
+                        <li><a routerLink="/cafeterias">Cafeterías</a></li>
+                        <li><a routerLink="/bares">Bares</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nav-item" (mouseenter)="openReservar()" (mouseleave)="closeReservar()">
+                <button class="nav-link">Reservar
+          <span class="caret">▾</span>
+        </button>
+
+                <div class="dropdown-card" *ngIf="dropdownReservar">
+                    <ul>
+                        <li><a routerLink="/hoteles">Hoteles</a></li>
+                        <li><a routerLink="/tours">Tours</a></li>
+                        <li><a routerLink="/transporte">Transporte</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- RIGHT (login + hamburger) -->
+        <div class="nav-right">
+            <a routerLink="/login" class="login-pill">Iniciar sesión</a>
+            <button class="hamburger-btn" (click)="toggleMenu()" aria-label="Abrir menú">
+        <span class="hamburger-icon">☰</span>
+      </button>
+        </div>
+
+    </div>
+</header>
+
+<!-- MOBILE SLIDE PANEL -->
+<div class="mobile-panel" *ngIf="menuOpen">
+    <div class="mobile-panel-inner">
+        <div class="mobile-header">
+            <img src="assets/logo.svg" alt="ViveXalapa" class="mobile-logo">
+            <button class="close-x" (click)="toggleMenu()">✕</button>
+        </div>
+
+        <div class="mobile-columns">
+            <div class="col">
+                <h4>DESCUBRIR</h4>
+                <a routerLink="/lugares" (click)="toggleMenu()">Lugares Turísticos</a>
+                <a routerLink="/gastronomia" (click)="toggleMenu()">Gastronomía</a>
+                <a routerLink="/cafeterias" (click)="toggleMenu()">Cafeterías</a>
+                <a routerLink="/bares" (click)="toggleMenu()">Bares</a>
+            </div>
+
+            <div class="col">
+                <h4>RESERVAR</h4>
+                <a routerLink="/hoteles" (click)="toggleMenu()">Hoteles</a>
+                <a routerLink="/tours" (click)="toggleMenu()">Tours</a>
+                <a routerLink="/transporte" (click)="toggleMenu()">Transporte</a>
+
+                <div class="mobile-login-wrap">
+                    <a routerLink="/login" class="mobile-login" (click)="toggleMenu()">Iniciar sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
