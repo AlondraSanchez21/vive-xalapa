@@ -1,0 +1,90 @@
+[{
+        "id": 1,
+        "nombre": "Parque Juárez",
+        "descripcion": "Mirador emblemático con vistas panorámicas al centro de Xalapa, áreas verdes y ambiente relajado.",
+        "categoria": "cultural",
+        "imagen": "assets/lugares/parque-juarez.jpg",
+        "galeria": [
+            "assets/lugares/parque-juarez.jpg",
+            "assets/lugares/parque-juarez-2.jpg",
+            "assets/lugares/parque-juarez-3.jpg"
+        ],
+        "rating": 4.6,
+        "comentarios": [{
+                "usuario": "María López",
+                "texto": "Hermosa vista al atardecer, súper recomendado."
+            },
+            {
+                "usuario": "Carlos Herrera",
+                "texto": "Muy tranquilo y limpio para caminar."
+            }
+        ],
+        "horarios": "Abierto 24 horas",
+        "direccion": "Av. Juárez, Centro, Xalapa, Veracruz",
+        "telefono": "No disponible",
+        "precio_entrada": "Gratis",
+        "popularidad": "alta",
+        "lat": 19.5431,
+        "lng": -96.9103
+    },
+
+    {
+        "id": 2,
+        "nombre": "Museo de Antropología",
+        "descripcion": "El museo más importante de Veracruz y uno de los más destacados de México por su colección arqueológica.",
+        "categoria": "histórico",
+        "imagen": "assets/lugares/max.jpg",
+        "galeria": [
+            "assets/lugares/max.jpg",
+            "assets/lugares/max-2.jpg",
+            "assets/lugares/max-3.jpg"
+        ],
+        "rating": 4.8,
+        "comentarios": [{
+                "usuario": "Ana Valdez",
+                "texto": "Las piezas olmecas están increíbles, vale mucho la pena."
+            },
+            {
+                "usuario": "Roberto Díaz",
+                "texto": "Muy bien organizado y educativo."
+            }
+        ],
+        "horarios": "Martes a domingo 9:00 AM - 5:00 PM",
+        "direccion": "Avenida Xalapa s/n, Unidad Magisterial",
+        "telefono": "228 841 6040",
+        "precio_entrada": "$60 MXN",
+        "popularidad": "muy_alta",
+        "lat": 19.5312,
+        "lng": -96.8958
+    },
+
+    {
+        "id": 3,
+        "nombre": "Los Lagos",
+        "descripcion": "Zona natural icónica para caminar, correr, tomar fotos y disfrutar del ambiente tranquilo.",
+        "categoria": "naturaleza",
+        "imagen": "assets/lugares/lagos.jpg",
+        "galeria": [
+            "assets/lugares/lagos.jpg",
+            "assets/lugares/lagos-2.jpg",
+            "assets/lugares/lagos-3.jpg"
+        ],
+        "rating": 4.7,
+        "comentarios": [{
+                "usuario": "Fernanda Solís",
+                "texto": "Perfecto para pasear en familia o tomar café."
+            },
+            {
+                "usuario": "Luis Mendoza",
+                "texto": "Muy bonito y seguro, ideal para fotos."
+            }
+        ],
+        "horarios": "Abierto 24 horas",
+        "direccion": "Circuito Presidentes, Xalapa, Veracruz",
+        "telefono": "No disponible",
+        "precio_entrada": "Gratis",
+        "popularidad": "alta",
+        "lat": 19.5278,
+        "lng": -96.9145
+    }
+]

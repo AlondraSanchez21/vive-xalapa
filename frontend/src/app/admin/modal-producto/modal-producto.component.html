@@ -1,0 +1,38 @@
+<div class="modal fade" id="modalProducto" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content p-4 shadow-lg rounded-4">
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-primary btn-sm me-2" (click)="activarEdicion()">Editar</button>
+                <button class="btn btn-outline-danger btn-sm me-3" (click)="onEliminar()">Eliminar</button>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="text-center">
+                <img [src]="producto.imagen" style="width:150px;" class="rounded mb-3">
+            </div>
+
+            <div class="text-start product-grid">
+
+                <div class="field">
+                    <label>Nombre:</label>
+                    <span>{{producto.nombre}}</span>
+                </div>
+
+                <div class="field">
+                    <label>Precio:</label>
+                    <span>{{producto.precio}}</span>
+                </div>
+
+                <div class="field">
+                    <label>Categoría:</label>
+                    <span>{{producto.categoria}}</span>
+                </div>
+
+                <!-- Puedes agregar más campos según tu base de datos -->
+
+            </div>
+
+        </div>
+    </div>
+</div>

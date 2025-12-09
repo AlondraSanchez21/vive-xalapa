@@ -1,0 +1,362 @@
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: #0c5f39;
+    color: white;
+}
+
+.filtros {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.filtros button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #e8e8e8;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filtros .activo {
+    background: #0c5f39;
+    color: white;
+}
+
+
+/* CARD LIST */
+
+.lista-tours {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+}
+
+.tour-card {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+    padding: 14px;
+}
+
+.tour-card .thumb {
+    position: relative;
+    flex: 0 0 260px
+}
+
+.tour-card .thumb img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px
+}
+
+.tour-card .thumb .badge {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    background: #fff;
+    color: #0c5f39;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08)
+}
+
+.tour-info {
+    flex: 1;
+}
+
+.tour-info h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.meta {
+    margin: 10px 0;
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px
+}
+
+.price-block .old {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 13px
+}
+
+.price-block .price {
+    color: #c22;
+    font-weight: 700
+}
+
+.ver-btn {
+    padding: 10px 15px;
+    background: #0c5f39;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* =======================
+   MODAL
+======================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    animation: fadeIn .3s ease;
+}
+
+
+/* Animación */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    width: 95%;
+    max-width: 1050px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 5px 25px #0004;
+    position: relative;
+    animation: pop .25s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.cerrar {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: #444;
+}
+
+
+/* GRID INTERNO */
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+
+/* =======================
+   IZQUIERDA (Galería + Info)
+======================= */
+
+.modal-left h2 {
+    margin: 0 0 15px;
+    font-size: 26px;
+    font-weight: 800;
+    color: #0c5f39;
+}
+
+
+/* Imagen principal */
+
+.galeria-principal img {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #0002;
+}
+
+
+/* Miniaturas */
+
+.galeria-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.galeria-thumbs img {
+    width: 80px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: .2s ease;
+}
+
+.galeria-thumbs img:hover,
+.galeria-thumbs .activa {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+
+/* Descripción larga */
+
+.descripcion-larga {
+    margin: 20px 0;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #444;
+}
+
+
+/* Mapa */
+
+.mapa iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    margin-top: 15px;
+    border: 0;
+    box-shadow: 0 3px 10px #0002;
+}
+
+
+/* =======================
+   PANEL DERECHO (Reserva)
+======================= */
+
+.modal-right {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: inset 0 0 10px #0001;
+}
+
+.precio-box h3 {
+    margin: 0 0 20px;
+    font-size: 22px;
+    color: #222;
+}
+
+.precio-box span {
+    color: #0c5f39;
+    font-weight: 800;
+    font-size: 26px;
+}
+
+
+/* Inputs */
+
+.inputs label {
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
+
+.inputs select,
+.inputs input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin: 8px 0 15px;
+    font-size: 15px;
+}
+
+
+/* Botón */
+
+.btn-reservar {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #0c5f39;
+    color: white;
+    font-size: 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .2s ease;
+}
+
+.btn-reservar:hover {
+    background: #0a4d2f;
+}
+
+
+/* Beneficios */
+
+.beneficios {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.beneficios p {
+    margin: 5px 0;
+}
+
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 900px) {
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+    .modal-right {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .galeria-thumbs img {
+        width: 60px;
+        height: 45px;
+    }
+    .galeria-principal img {
+        height: 240px;
+    }
+}

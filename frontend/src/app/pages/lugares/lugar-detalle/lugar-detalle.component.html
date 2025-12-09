@@ -1,0 +1,33 @@
+<div class="detalle-container" *ngIf="lugar">
+
+    <h1>{{ lugar.nombre }}</h1>
+    <p class="categoria">{{ lugar.categoria | titlecase }}</p>
+
+    <img [src]="lugar.imagen" alt="{{ lugar.nombre }}" class="imagen-principal">
+
+    <div class="descripcion">
+        <p>{{ lugar.descripcion }}</p>
+    </div>
+
+    <!-- Rating opcional -->
+    <div class="rating" *ngIf="lugar.rating">
+        <span *ngFor="let star of [1,2,3,4,5]">
+      <i class="fa" [ngClass]="star <= lugar.rating ? 'fa-star estrella' : 'fa-star-o'"></i>
+    </span>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="comentarios" *ngIf="lugar.comentarios?.length">
+        <h3>Comentarios:</h3>
+        <div *ngFor="let c of lugar.comentarios">
+            <strong>{{ c.usuario }}</strong>: {{ c.texto }}
+        </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="mapa" *ngIf="lugar.lat && lugar.lng">
+        <iframe width="100%" height="350" style="border:0" loading="lazy" [src]="'https://www.google.com/maps/embed/v1/place?key=TU_API_KEY&q=' + lugar.lat + ',' + lugar.lng">
+    </iframe>
+    </div>
+
+</div>

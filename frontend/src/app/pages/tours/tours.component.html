@@ -1,0 +1,120 @@
+<!-- HERO -->
+<section class="hero">
+    <h1>Explora los Mejores Tours en Xalapa</h1>
+    <p>Experiencias culturales, naturales y de aventura.</p>
+</section>
+
+<!-- FILTROS -->
+<div class="filtros">
+    <button *ngFor="let t of tipos" (click)="filtrar(t)" [class.activo]="t === tipoActual">
+        {{ t | titlecase }}
+    </button>
+</div>
+
+<!-- LISTA DE TOURS -->
+<div class="lista-tours">
+
+    <div class="tour-card fade-in" *ngFor="let tour of filtrados">
+
+        <div class="thumb">
+            <img class="tour-img" [src]="tour.imagen" alt="{{tour.nombre}}">
+            <div class="badge">{{ tour.tipo | titlecase }}</div>
+        </div>
+
+        <div class="tour-info">
+            <h2>{{ tour.nombre }}</h2>
+
+            <p class="descripcion">
+                {{ tour.descripcionBreve }}
+            </p>
+
+            <div class="meta">
+                <span>⏱ {{ tour.duracion }}</span>
+                <span *ngIf="tour.rating">★ {{ tour.rating }} · {{ tour.reviews }} reseñas</span>
+            </div>
+
+            <div class="card-bottom">
+                <div class="price-block">
+                    <div *ngIf="tour.precioAntes" class="old">${{ tour.precioAntes }} MXN</div>
+                    <div class="price">Desde <strong>${{ tour.precio }} MXN</strong></div>
+                </div>
+                <div>
+                    <button class="ver-btn" (click)="verDetalles(tour)">Ver más</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- MODAL DETALLES -->
+<div class="modal-overlay" *ngIf="tourSeleccionado" (click)="cerrarModal()">
+
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" (click)="$event.stopPropagation()">
+
+        <!-- CERRAR -->
+        <button class="cerrar" (click)="cerrarModal()" aria-label="Cerrar">✖</button>
+
+        <!-- CONTENEDOR 2 COLUMNAS -->
+        <div class="modal-grid">
+
+            <!-- IZQUIERDA - GALERÍA -->
+            <div class="modal-left">
+
+                <h2 id="modal-title">{{ tourSeleccionado.nombre }}</h2>
+
+                <!-- Imagen grande -->
+                <div class="galeria-principal">
+                    <img [src]="imagenActual || tourSeleccionado.galeria[0]" alt="Imagen principal del tour">
+                </div>
+
+                <!-- Miniaturas -->
+                <div class="galeria-thumbs">
+                    <img *ngFor="let img of tourSeleccionado.galeria" [src]="img" (click)="cambiarImagen(img)" [class.activa]="img === imagenActual" alt="Miniatura del tour">
+                </div>
+
+                <!-- Descripción -->
+                <div class="descripcion-larga">
+                    <p>{{ tourSeleccionado.descripcionLarga }}</p>
+                </div>
+
+                <!-- MAPA -->
+                <div class="mapa" *ngIf="tourSeleccionado.mapa">
+                    <iframe width="100%" height="300" [attr.src]="tourSeleccionado.mapa" style="border:0;" loading="lazy">
+                    </iframe>
+                </div>
+
+            </div>
+
+            <!-- DERECHA - PANEL DE RESERVA -->
+            <div class="modal-right">
+
+                <div class="precio-box">
+                    <h3>Desde <span>${{ tourSeleccionado.precio }} MXN</span></h3>
+                </div>
+
+                <div class="inputs">
+                    <label>Cantidad</label>
+                    <select>
+                        <option *ngFor="let n of [1,2,3,4,5]"> {{n}} persona(s) </option>
+                    </select>
+
+                    <label>Fecha</label>
+                    <input type="date">
+                </div>
+
+                <button class="btn-reservar" (click)="reservar()">Ver disponibilidad</button>
+
+
+                <div class="beneficios">
+                    <p>✔ Cancelación gratuita</p>
+                    <p>✔ Reservar ahora y pagar después</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

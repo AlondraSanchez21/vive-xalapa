@@ -1,0 +1,201 @@
+[{
+        "id": 1,
+        "nombre": "Piazza Pasticcio",
+        "categoria": "Restaurante",
+        "tipo": "Italiana",
+        "precio": "$$$$",
+        "imagen": "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&h=300&fit=crop",
+        "rating": 4.8,
+        "colonia": "Centro",
+        "descripcion": "Piazza Pasticcio construye un mundo alrededor de la pasta en donde comparte su pasión por la tradición con la creatividad de la innovación.",
+        "telefono": "+52 228 815 5555",
+        "horario": "12:00 pm - 11:00 pm",
+        "servicios": ["Reservado 6 veces hoy", "Wi-Fi", "Estacionamiento"],
+        "tiposComida": ["Pasta", "Italiana", "Pizzas"],
+        "horariosDisponibles": ["6:30 p.m.", "6:45 p.m.", "7:00 p.m.", "7:15 p.m.", "7:30 p.m."],
+        "ubicacion": {
+            "lat": 19.5437,
+            "lng": -96.7279
+        }
+    },
+    {
+        "id": 2,
+        "nombre": "Sonia",
+        "categoria": "Restaurante",
+        "tipo": "Italiana",
+        "precio": "$$$$",
+        "imagen": "https://images.unsplash.com/photo-1555939594-58d7cb561d1a?w=500&h=300&fit=crop",
+        "rating": 4.7,
+        "colonia": "Juárez",
+        "descripcion": "Sonia es un encantador restaurante italiano ubicado en el corazón de la vibrante colonia Juárez.",
+        "telefono": "+52 228 812 3333",
+        "horario": "1:00 pm - 11:00 pm",
+        "servicios": ["Reservado 1 vez hoy", "Wi-Fi", "Terraza"],
+        "tiposComida": ["Pasta", "Italiana", "Mariscos"],
+        "horariosDisponibles": ["6:30 p.m.", "6:45 p.m.", "7:00 p.m.", "7:15 p.m.", "7:30 p.m."],
+        "ubicacion": {
+            "lat": 19.5445,
+            "lng": -96.7285
+        }
+    },
+    {
+        "id": 3,
+        "nombre": "Café de la Esquina",
+        "categoria": "Cafetería",
+        "tipo": "Café",
+        "precio": "$$",
+        "imagen": "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=500&h=300&fit=crop",
+        "rating": 4.5,
+        "colonia": "Centro",
+        "descripcion": "Café tradicional con ambiente acogedor, perfecto para desayunos y comidas rápidas.",
+        "telefono": "+52 228 818 9999",
+        "horario": "8:00 am - 8:00 pm",
+        "servicios": ["Wifi", "Estacionamiento", "Mascotas permitidas"],
+        "tiposComida": ["Café", "Desayunos", "Postres"],
+        "horariosDisponibles": ["8:00 a.m.", "9:00 a.m.", "10:00 a.m.", "10:30 a.m.", "11:00 a.m."],
+        "ubicacion": {
+            "lat": 19.5430,
+            "lng": -96.7270
+        }
+    },
+    {
+        "id": 4,
+        "nombre": "El Restaurante de Don Luis",
+        "categoria": "Comida Típica",
+        "tipo": "Mexicana",
+        "precio": "$$$",
+        "imagen": "https://images.unsplash.com/photo-1565821785289-696a2d534d7d?w=500&h=300&fit=crop",
+        "rating": 4.6,
+        "colonia": "Centro",
+        "descripcion": "Comida tradicional mexicana preparada con ingredientes frescos y recetas auténticas.",
+        "telefono": "+52 228 815 7777",
+        "horario": "11:00 am - 10:00 pm",
+        "servicios": ["Música en vivo", "Reservaciones", "Estacionamiento"],
+        "tiposComida": ["Mexicana", "Tacos", "Moles"],
+        "horariosDisponibles": ["5:00 p.m.", "5:30 p.m.", "6:00 p.m.", "6:30 p.m.", "7:00 p.m."],
+        "ubicacion": {
+            "lat": 19.5440,
+            "lng": -96.7280
+        }
+    },
+    {
+        "id": 5,
+        "nombre": "Mariscos Frescos del Golfo",
+        "categoria": "Restaurante",
+        "tipo": "Mariscos",
+        "precio": "$$$",
+        "imagen": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=300&fit=crop",
+        "rating": 4.7,
+        "colonia": "Centro",
+        "descripcion": "Mariscos frescos preparados diariamente. Especialidad en ceviches y platillos a la parrilla.",
+        "telefono": "+52 228 814 2222",
+        "horario": "12:00 pm - 10:00 pm",
+        "servicios": ["Terrazas", "Vistas al río", "Estacionamiento"],
+        "tiposComida": ["Mariscos", "Ceviches", "Parrilla"],
+        "horariosDisponibles": ["5:30 p.m.", "6:00 p.m.", "6:30 p.m.", "7:00 p.m.", "7:30 p.m."],
+        "ubicacion": {
+            "lat": 19.5450,
+            "lng": -96.7275
+        }
+    },
+    {
+        "id": 6,
+        "nombre": "Pizzería La Nonna",
+        "categoria": "Restaurante",
+        "tipo": "Italiana",
+        "precio": "$$",
+        "imagen": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&h=300&fit=crop",
+        "rating": 4.4,
+        "colonia": "Centro",
+        "descripcion": "Pizzas artesanales horneadas en horno de leña. Recetas italianas auténticas.",
+        "telefono": "+52 228 813 5555",
+        "horario": "4:00 pm - 11:00 pm",
+        "servicios": ["Horno de leña", "Delivery", "Wifi"],
+        "tiposComida": ["Pizzas", "Pastas", "Italiana"],
+        "horariosDisponibles": ["6:00 p.m.", "6:30 p.m.", "7:00 p.m.", "7:30 p.m.", "8:00 p.m."],
+        "ubicacion": {
+            "lat": 19.5435,
+            "lng": -96.7282
+        }
+    },
+    {
+        "id": 7,
+        "nombre": "Casa de los Abuelos",
+        "categoria": "Comida Típica",
+        "tipo": "Comida Casera",
+        "precio": "$$",
+        "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=300&fit=crop",
+        "rating": 4.9,
+        "colonia": "Centro",
+        "descripcion": "Comida casera tradicional preparada con amor. Menú diario con platillos deliciosos.",
+        "telefono": "+52 228 816 4444",
+        "horario": "7:00 am - 9:00 pm",
+        "servicios": ["Menú del día", "Música ambiental", "Estacionamiento"],
+        "tiposComida": ["Comida Casera", "Sopas", "Guisados"],
+        "horariosDisponibles": ["12:00 p.m.", "12:30 p.m.", "1:00 p.m.", "1:30 p.m.", "2:00 p.m."],
+        "ubicacion": {
+            "lat": 19.5438,
+            "lng": -96.7277
+        }
+    },
+    {
+        "id": 8,
+        "nombre": "Café Veracruzano",
+        "categoria": "Cafetería",
+        "tipo": "Café",
+        "precio": "$",
+        "imagen": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&h=300&fit=crop",
+        "rating": 4.3,
+        "colonia": "Centro",
+        "descripcion": "El verdadero sabor del café veracruzano. Bebidas calientes y frías en un ambiente tranquilo.",
+        "telefono": "+52 228 817 1111",
+        "horario": "6:00 am - 7:00 pm",
+        "servicios": ["WiFi gratis", "Conexión USB", "Libros"],
+        "tiposComida": ["Café", "Smoothies", "Pasteles"],
+        "horariosDisponibles": ["8:00 a.m.", "9:00 a.m.", "10:00 a.m.", "11:00 a.m."],
+        "ubicacion": {
+            "lat": 19.5432,
+            "lng": -96.7283
+        }
+    },
+    {
+        "id": 9,
+        "nombre": "Restaurante Xalapeño",
+        "categoria": "Comida Típica",
+        "tipo": "Mexicana",
+        "precio": "$$",
+        "imagen": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=300&fit=crop",
+        "rating": 4.5,
+        "colonia": "Enríquez",
+        "descripcion": "Platillos típicos de Xalapa con ingredientes locales. Especialidad en chile y mole.",
+        "telefono": "+52 228 819 3333",
+        "horario": "10:00 am - 9:00 pm",
+        "servicios": ["Música viva", "Estacionamiento", "Terraza"],
+        "tiposComida": ["Mexicana", "Chiles rellenos", "Moles"],
+        "horariosDisponibles": ["5:00 p.m.", "5:30 p.m.", "6:00 p.m.", "6:30 p.m.", "7:00 p.m."],
+        "ubicacion": {
+            "lat": 19.5425,
+            "lng": -96.7290
+        }
+    },
+    {
+        "id": 10,
+        "nombre": "Bar El Rincón",
+        "categoria": "Bar",
+        "tipo": "Bebidas",
+        "precio": "$$",
+        "imagen": "https://images.unsplash.com/photo-1514432324607-2e467f4af445?w=500&h=300&fit=crop",
+        "rating": 4.6,
+        "colonia": "Centro",
+        "descripcion": "Bar tradicional con buen ambiente, bebidas variadas y comida típica.",
+        "telefono": "+52 228 820 1111",
+        "horario": "5:00 pm - 2:00 am",
+        "servicios": ["Música en vivo", "Billar", "Terraza"],
+        "tiposComida": ["Bebidas", "Antojitos", "Botanas"],
+        "horariosDisponibles": ["6:00 p.m.", "7:00 p.m.", "8:00 p.m.", "9:00 p.m.", "10:00 p.m."],
+        "ubicacion": {
+            "lat": 19.5441,
+            "lng": -96.7278
+        }
+    }
+]

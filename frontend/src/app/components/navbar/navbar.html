@@ -1,0 +1,165 @@
+<header class="navbar">
+    <div class="navbar-container">
+        <!-- Logo/Brand -->
+        <div class="navbar-brand">
+            <a routerLink="" class="logo-link">
+                <img src="assets/logo.svg" alt="ViveXalapa" class="logo-img" />
+                <span class="logo-text">ViveXalapa</span>
+            </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="navbar-nav desktop-only">
+            <div class="nav-group">
+                <button class="nav-link dropdown-trigger" (mouseenter)="openDescubrir()" (mouseleave)="closeDescubrir()">
+          Descubrir <span class="dropdown-icon">▼</span>
+        </button>
+                <div class="dropdown-menu" *ngIf="dropdownDescubrir" (mouseenter)="openDescubrir()" (mouseleave)="closeDescubrir()">
+                    <a routerLink="/lugares" routerLinkActive="active" class="dropdown-item">
+                        <span class="icon">📍</span> Lugares Turísticos
+                    </a>
+                    <a routerLink="/gastronomia" routerLinkActive="active" class="dropdown-item">
+                        <span class="icon">🍽️</span> Gastronomía
+                    </a>
+                    <a routerLink="/viajes" routerLinkActive="active" class="dropdown-item">
+                        <span class="icon">✈️</span> Viajes
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <button class="nav-link dropdown-trigger" (mouseenter)="openReservar()" (mouseleave)="closeReservar()">
+          Reservar <span class="dropdown-icon">▼</span>
+        </button>
+                <div class="dropdown-menu" *ngIf="dropdownReservar" (mouseenter)="openReservar()" (mouseleave)="closeReservar()">
+                    <a routerLink="/hoteles" routerLinkActive="active" class="dropdown-item">
+                        <span class="icon">🏨</span> Hoteles
+                    </a>
+                    <a routerLink="/tours" routerLinkActive="active" class="dropdown-item">
+                        <span class="icon">🎒</span> Tours
+                    </a>
+
+                </div>
+            </div>
+
+            <a routerLink="/tours" class="nav-link">Tours</a>
+            <a routerLink="/hoteles" class="nav-link">Hoteles</a>
+        </nav>
+
+        <!-- Right Actions -->
+        <div class="navbar-actions">
+            <!-- Favoritos (solo si logged in) -->
+            <a href="#" class="nav-icon" title="Favoritos">
+                <span>❤️</span>
+            </a>
+
+            <!-- Login / Profile -->
+            <div *ngIf="usuarioLogueado; else notLogged">
+                <span class="user-welcome">👤 {{ usuarioLogueado.nombre }}</span>
+                <a routerLink="/perfil" class="btn-login">Mi Perfil</a>
+                <button (click)="cerrarSesion()" class="btn-logout">Cerrar sesión</button>
+            </div>
+            <ng-template #notLogged>
+                <button (click)="abrirModalLogin()" class="btn-login">Iniciar sesión</button>
+            </ng-template>
+
+            <!-- Hamburger Menu (móvil) -->
+            <button class="hamburger" (click)="toggleMenu()" [class.active]="menuOpen" aria-label="Menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" *ngIf="menuOpen">
+        <nav class="mobile-nav">
+            <div class="mobile-section">
+                <h3>Descubrir</h3>
+                <a routerLink="/lugares" (click)="toggleMenu()" class="mobile-link">📍 Lugares Turísticos</a>
+                <a routerLink="/gastronomia" (click)="toggleMenu()" class="mobile-link">🍽️ Gastronomía</a>
+                <a routerLink="/viajes" (click)="toggleMenu()" class="mobile-link">✈️ Viajes</a>
+            </div>
+
+            <div class="mobile-section">
+                <h3>Reservar</h3>
+                <a routerLink="/hoteles" (click)="toggleMenu()" class="mobile-link">🏨 Hoteles</a>
+                <a routerLink="/tours" (click)="toggleMenu()" class="mobile-link">🎒 Tours</a>
+            </div>
+
+            <div class="mobile-section mobile-cta">
+                <button *ngIf="!usuarioLogueado" (click)="abrirModalLogin(); toggleMenu()" class="btn-login-mobile">Iniciar sesión</button>
+                <button *ngIf="usuarioLogueado" (click)="cerrarSesion(); toggleMenu()" class="btn-logout-mobile">Cerrar sesión</button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- MODAL DE LOGIN / REGISTRO -->
+<div *ngIf="mostrarModalAuth" class="modal-backdrop" (click)="cerrarModal()">
+    <div class="modal-auth" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="cerrarModal()">✕</button>
+
+        <!-- INICIAR SESIÓN -->
+        <div *ngIf="!modoRegistro" class="auth-form">
+            <h2>Iniciar sesión</h2>
+            <p class="subtitle">Bienvenido de nuevo a ViveXalapa</p>
+
+            <div class="form-group">
+                <label>Correo electrónico</label>
+                <input type="email" [(ngModel)]="email" placeholder="tu@email.com" />
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" [(ngModel)]="password" placeholder="••••••••" />
+            </div>
+
+            <button (click)="iniciarSesion()" class="btn-submit">Iniciar sesión</button>
+
+            <p class="toggle-auth">
+                ¿No tienes cuenta?
+                <button (click)="modoRegistro = true" class="link-btn">Regístrate aquí</button>
+            </p>
+        </div>
+
+        <!-- REGISTRO -->
+        <div *ngIf="modoRegistro" class="auth-form">
+            <h2>Crear cuenta</h2>
+            <p class="subtitle">Únete a la comunidad ViveXalapa</p>
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" [(ngModel)]="nombre" placeholder="Tu nombre" />
+            </div>
+
+            <div class="form-group">
+                <label>Apellido</label>
+                <input type="text" [(ngModel)]="apellido" placeholder="Tu apellido" />
+            </div>
+
+            <div class="form-group">
+                <label>Correo electrónico</label>
+                <input type="email" [(ngModel)]="email" placeholder="tu@email.com" />
+            </div>
+
+            <div class="form-group">
+                <label>Teléfono (opcional)</label>
+                <input type="tel" [(ngModel)]="telefono" placeholder="+52 123 456 7890" />
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" [(ngModel)]="password" placeholder="••••••••" />
+            </div>
+
+            <button (click)="registrarse()" class="btn-submit">Registrarse</button>
+
+            <p class="toggle-auth">
+                ¿Ya tienes cuenta?
+                <button (click)="modoRegistro = false" class="link-btn">Inicia sesión</button>
+            </p>
+        </div>
+    </div>
+</div>

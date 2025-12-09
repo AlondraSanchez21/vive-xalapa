@@ -1,0 +1,51 @@
+<!-- HERO (NO TOCAR) -->
+<section class="hero">
+    <div class="overlay"></div>
+    <div class="contenido">
+        <h1>Lugares que no te puedes perder en Xalapa</h1>
+        <p>Explora los sitios más hermosos, culturales y naturales de la ciudad.</p>
+    </div>
+</section>
+<!-- FILTROS -->
+<div class="filtros">
+    <button (click)="filtrar('todos')" [class.activo]="categoriaActual === 'todos'">Todos</button>
+    <button (click)="filtrar('naturaleza')" [class.activo]="categoriaActual === 'naturaleza'">Naturaleza</button>
+    <button (click)="filtrar('histórico')" [class.activo]="categoriaActual === 'histórico'">Histórico</button>
+    <button (click)="filtrar('cultural')" [class.activo]="categoriaActual === 'cultural'">Cultural</button>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+    <div class="card" *ngFor="let lugar of lugaresFiltrados">
+        <img [src]="lugar.imagen" alt="{{ lugar.nombre }}">
+        <div class="info">
+            <h3>{{ lugar.nombre }}</h3>
+            <p>{{ lugar.descripcion }}</p>
+            <button class="btn" (click)="abrirModal(lugar)">Ver más</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
+    <div class="modal">
+        <button class="cerrar" (click)="cerrarModal()">✖</button>
+        <h2>{{ lugarSeleccionado?.nombre }}</h2>
+        <p class="categoria">{{ lugarSeleccionado?.categoria | titlecase }}</p>
+        <img [src]="lugarSeleccionado?.imagen" alt="{{ lugarSeleccionado?.nombre }}" class="imagen-principal">
+        <p>{{ lugarSeleccionado?.descripcion }}</p>
+
+        <div class="rating" *ngIf="lugarSeleccionado?.rating">
+            <span *ngFor="let star of [1,2,3,4,5]">
+        <i class="fa" [ngClass]="star <= lugarSeleccionado.rating ? 'fa-star estrella' : 'fa-star-o'"></i>
+      </span>
+        </div>
+
+        <div class="comentarios" *ngIf="lugarSeleccionado?.comentarios?.length">
+            <h3>Comentarios:</h3>
+            <div *ngFor="let c of lugarSeleccionado.comentarios">
+                <strong>{{ c.usuario }}</strong>: {{ c.texto }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,210 @@
+<div class="hoteles-wrap">
+    <h2>Reservación de Hoteles</h2>
+
+    <div class="search-row">
+        <div class="input-group">
+            <label>¿A dónde quieres ir?</label>
+            <input type="text" [(ngModel)]="destinationInput" (focus)="openMunicipiosIfXalapa()" placeholder="Ciudad, zona..." />
+            <small class="hint">Si escribes "Xalapa" se abrirá una lista de zonas/municipios</small>
+        </div>
+
+        <div class="input-group">
+            <label>Seleccionar hotel</label>
+            <select [(ngModel)]="selectedHotelId" name="selTopHotel">
+                            <option *ngFor="let h of hotels" [value]="h.id">{{ h.name }} — {{ h.location }} · ${{ h.priceMXN }}</option>
+                        </select>
+        </div>
+        <div class="input-group" *ngIf="isLoggedIn; else noPromo">
+            <label>Promoción</label>
+            <select [(ngModel)]="currentPromo.key" (ngModelChange)="setPromo($event)" name="promoSelect">
+                <option *ngFor="let p of promos" [value]="p.key">{{ p.label }} {{ p.percent ? (' - ' + p.percent + '%') : '' }}</option>
+            </select>
+            <small class="hint">Selecciona una promoción para probar descuentos</small>
+        </div>
+        <ng-template #noPromo>
+            <div class="input-group">
+                <label>Promoción</label>
+                <div class="hint">Inicia sesión para ver promociones</div>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- LISTADO DE HOTELS (tarjetas) -->
+    <section class="hotel-list">
+        <div class="hotel-card" *ngFor="let h of hotels">
+            <div class="hotel-image" (click)="openHotelModal(h.id)">
+                <!-- si tienes imágenes reales, úsalas; aquí fallback -->
+                <img [src]="h.images && h.images.length ? h.images[0] : '/assets/hotel-placeholder.png'" alt="{{ h.name }}">
+            </div>
+            <div class="hotel-meta">
+                <h4>{{ h.name }}</h4>
+                <p class="loc">{{ h.location }}</p>
+                <p class="price">
+                    <ng-container *ngIf="getPriceWithDiscount(h) as p">
+                        <span class="final">$ {{ p.finalPrice }} MXN</span>
+                        <small class="orig">$ {{ p.original }} MXN</small>
+                        <span *ngIf="p.discountPercent > 0" class="discount">-{{ p.discountPercent }}%</span>
+                        <div class="price-note" *ngIf="p.discountPercent > 0">Descuento por usuario registrado</div>
+                    </ng-container>
+                </p>
+                <div class="card-actions">
+                    <button (click)="openHotelModal(h.id)" class="btn-primary">Ver detalles</button>
+                    <button (click)="selectedHotelId = h.id; showReservaModal = true" class="btn-secondary">Reservar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario (modal) - reutilizable -->
+    <div class="modal-backdrop" *ngIf="showReservaModal" (click)="closeReservaModal()">
+        <div class="modal" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h4>Formulario de reservación</h4>
+                <button class="close" (click)="closeReservaModal()">✕</button>
+            </div>
+
+            <form (ngSubmit)="reservar()" class="reserva-form">
+                <div class="grid">
+                    <div class="field">
+                        <label>Hotel</label>
+                        <select [(ngModel)]="selectedHotelId" name="selHotel">
+              <option *ngFor="let h of hotels" [value]="h.id">{{ h.name }}</option>
+            </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Check-in</label>
+                        <input type="date" [(ngModel)]="checkIn" name="checkIn" required />
+                    </div>
+                    <div class="field">
+                        <label>Check-out</label>
+                        <input type="date" [(ngModel)]="checkOut" name="checkOut" required />
+                    </div>
+                    <div class="field">
+                        <label>Huéspedes</label>
+                        <input type="number" min="1" [(ngModel)]="guests" name="guests" />
+                    </div>
+                    <div class="field">
+                        <label>Habitaciones</label>
+                        <input type="number" min="1" [(ngModel)]="rooms" name="rooms" />
+                    </div>
+                    <div class="field full">
+                        <label>Tipo de habitación</label>
+                        <select [(ngModel)]="roomType" name="roomType">
+              <option>Estándar</option>
+              <option>Suite</option>
+              <option>Familiar</option>
+            </select>
+                    </div>
+
+                    <div class="field full">
+                        <label>Nombre completo</label>
+                        <input type="text" [(ngModel)]="clientName" name="clientName" required />
+                    </div>
+                    <div class="field">
+                        <label>Correo</label>
+                        <input type="email" [(ngModel)]="clientEmail" name="clientEmail" required />
+                    </div>
+                    <div class="field">
+                        <label>Teléfono</label>
+                        <input type="text" [(ngModel)]="clientPhone" name="clientPhone" />
+                    </div>
+
+                    <div class="field full">
+                        <label>Peticiones especiales</label>
+                        <textarea rows="3" [(ngModel)]="requests" name="requests"></textarea>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn-primary">Reservar ahora</button>
+                    <button type="button" class="btn-secondary" (click)="resetForm()">Limpiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de reservas guardadas (demo) -->
+    <section class="my-reservas" *ngIf="reservations.length > 0">
+        <h3>Mis reservas</h3>
+        <div class="res-item" *ngFor="let r of reservations; let i = index">
+            <div>
+                <strong>{{ r.hotelName }}</strong> — {{ r.location }}<br /> {{ r.checkIn }} → {{ r.checkOut }} · {{ r.guests }} huésp. · {{ r.rooms }} hab.
+            </div>
+            <div class="res-actions">
+                <button (click)="removeReservation(i)">Eliminar</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal municipios -->
+<div class="modal-backdrop" *ngIf="showMunicipiosModal" (click)="closeMunicipiosModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h4>Elige una zona / municipio en Xalapa</h4>
+            <button class="close" (click)="closeMunicipiosModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <ul class="municipios-list">
+                <li *ngFor="let m of municipiosXalapa">
+                    <button (click)="selectMunicipio(m)">{{ m }}</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal detalle de hotel -->
+<div class="modal-backdrop" *ngIf="showHotelModal" (click)="closeHotelModal()">
+    <div class="modal hotel-detail" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>{{ activeHotel?.name }}</h3>
+            <button class="close" (click)="closeHotelModal()">✕</button>
+        </div>
+
+        <div class="hotel-detail-body">
+            <div class="left">
+                <div class="image-frame">
+                    <button class="img-nav left" (click)="prevImage()">‹</button>
+                    <img [src]="activeHotel?.images && activeHotel?.images.length ? activeHotel.images[activeImageIndex] : '/assets/hotel-placeholder.png'" alt="{{ activeHotel?.name }}">
+                    <button class="img-nav right" (click)="nextImage()">›</button>
+                </div>
+
+                <!-- mapa centrado (ejemplo con iframe embed) -->
+                <div class="map-container">
+                    <iframe [src]="'https://www.google.com/maps?q=' + (activeHotel?.location || 'Xalapa') + '&output=embed'" width="100%" height="260" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="right">
+                <p class="loc">{{ activeHotel?.location }}</p>
+                <p class="desc">{{ activeHotel?.description }}</p>
+
+                <h4>Tipos de habitación</h4>
+                <div class="room-list">
+                    <div class="room-card" *ngFor="let room of activeHotel?.rooms">
+                        <div>
+                            <strong>{{ room.name }}</strong>
+                            <div class="beds">{{ room.beds }}</div>
+                        </div>
+                        <div>
+                            <div class="price">
+                                <ng-container *ngIf="activeHotel">
+                                    <span class="final">$ {{ Math.round(room.priceMXN * (1 - (isLoggedIn ? 0.1 : 0))) }} MXN</span>
+                                    <small class="orig">$ {{ room.priceMXN }} MXN</small>
+                                </ng-container>
+                            </div>
+                            <button class="btn-primary" (click)="openReservaFromHotel()">Reservar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-actions">
+                    <button class="btn-secondary" (click)="closeHotelModal()">Volver</button>
+                    <button class="btn-primary" (click)="openReservaFromHotel()">Reservar habitación</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

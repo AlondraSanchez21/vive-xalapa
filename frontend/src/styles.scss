@@ -1,0 +1,26 @@
+/* Global styles and layout adjustments */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: #fff;
+}
+
+
+/* Ensure .content produced by app.component gets the correct transition when sidebar is present */
+
+.content {
+    transition: padding-left 0.12s ease;
+}
+
+
+/* When body has class sidebar-expanded (set by navbar) make space for the expanded sidebar */
+
+.sidebar-expanded .content {
+    padding-left: calc(220px + 32px) !important;
+}

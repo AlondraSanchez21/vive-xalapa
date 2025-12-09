@@ -1,0 +1,24 @@
+<app-admin-layout>
+    <div class="dashboard-container">
+        <h1>Panel de Administración</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card" *ngFor="let s of stats">
+                <span class="icon">{{ s.icon }}</span>
+                <h3>{{ s.value }}</h3>
+                <p>{{ s.label }}</p>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h2>Gestión Rápida</h2>
+            <div class="links-grid">
+                <a routerLink="/admin/hoteles" class="link-btn">🏨 Gestionar Hoteles</a>
+                <a routerLink="/admin/tours" class="link-btn">🎫 Gestionar Tours</a>
+                <a routerLink="/admin/viajes" class="link-btn">✈️ Gestionar Viajes</a>
+                <a routerLink="/admin/gastronomias" class="link-btn">🍽️ Gestionar Gastronomía</a>
+                <a routerLink="/admin/usuarios" class="link-btn">👥 Gestionar Usuarios</a>
+            </div>
+        </div>
+    </div>
+</app-admin-layout>

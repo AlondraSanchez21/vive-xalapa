@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+
+<div class="container my-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Usuarios Registrados</h1>
+        <button class="btn btn-dark" (click)="abrirModalAgregar()">Agregar Usuario</button>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Edad</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let u of usuarios">
+                <td>{{u.nombre}}</td>
+                <td>{{u.apellido}}</td>
+                <td>{{u.edad}}</td>
+                <td>{{u.telefono}}</td>
+                <td>{{u.correo}}</td>
+                <td>{{u.rol}}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="editar(u)">Editar</button>
+                    <button class="btn btn-sm btn-danger" (click)="eliminar(u.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<app-modal-usuario></app-modal-usuario>

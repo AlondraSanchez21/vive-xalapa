@@ -1,0 +1,7 @@
+{
+    "id": 1,
+    "nombre": "Hotel Real del Bosque",
+    "imagen": "assets/img/hoteles/hotel1.jpg",
+    "ubicacion": "Xalapa, Centro",
+    "precio": "900"
+}

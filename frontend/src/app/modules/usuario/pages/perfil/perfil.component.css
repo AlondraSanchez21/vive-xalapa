@@ -1,0 +1,572 @@
+/* Variables de colores */
+
+:root {
+    --color-primario: #1db854;
+    /* Verde Vive Xalapa */
+    --color-primario-dark: #158a3e;
+    --color-primario-light: #4cce7d;
+    --color-blanco: #ffffff;
+    --color-gris-claro: #f8f9fa;
+    --color-gris-medio: #e9ecef;
+    --color-gris-oscuro: #6c757d;
+    --color-texto: #2c3e50;
+    --color-error: #dc3545;
+    --color-exito: #28a745;
+    --sombra: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --sombra-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.perfil-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--color-texto);
+}
+
+
+/* Mensaje de estado */
+
+.mensaje-estado {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--color-primario);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: var(--sombra-hover);
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* Header del perfil */
+
+.perfil-header {
+    background: var(--color-blanco);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    margin-bottom: 30px;
+}
+
+.perfil-cover {
+    height: 200px;
+    background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario-light) 100%);
+}
+
+.perfil-info {
+    display: flex;
+    align-items: flex-start;
+    padding: 30px;
+    gap: 30px;
+    margin-top: -60px;
+    position: relative;
+}
+
+.perfil-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid var(--color-blanco);
+    box-shadow: var(--sombra-hover);
+    flex-shrink: 0;
+}
+
+.perfil-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.perfil-datos {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.perfil-datos h1 {
+    font-size: 28px;
+    margin: 0 0 5px 0;
+    color: var(--color-texto);
+}
+
+.miembro-desde {
+    color: var(--color-gris-oscuro);
+    font-size: 14px;
+    margin: 0 0 20px 0;
+}
+
+.perfil-stats {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat .numero {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+.stat .label {
+    font-size: 12px;
+    color: var(--color-gris-oscuro);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.perfil-acciones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-editar {
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--sombra);
+}
+
+.btn-editar:hover {
+    background: var(--color-primario-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-hover);
+}
+
+.btns-grupo {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-guardar,
+.btn-cancelar {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-guardar {
+    background: var(--color-exito);
+    color: white;
+}
+
+.btn-guardar:hover {
+    background: #218838;
+}
+
+.btn-cancelar {
+    background: var(--color-gris-medio);
+    color: var(--color-texto);
+}
+
+.btn-cancelar:hover {
+    background: var(--color-gris-oscuro);
+    color: white;
+}
+
+
+/* Contenido principal */
+
+.perfil-contenido {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+}
+
+
+/* Tarjetas */
+
+.card {
+    background: var(--color-blanco);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: var(--sombra);
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--sombra-hover);
+}
+
+.card h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: var(--color-texto);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-header h3 {
+    margin: 0;
+}
+
+.badge {
+    background: var(--color-primario);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* Formulario */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-gris-oscuro);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-gris-medio);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px rgba(29, 184, 84, 0.1);
+}
+
+.form-group input:disabled {
+    background: var(--color-gris-claro);
+    color: var(--color-gris-oscuro);
+    cursor: not-allowed;
+}
+
+
+/* Acciones */
+
+.card-acciones {
+    margin-top: 20px;
+}
+
+.enlace-accion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-gris-medio);
+    color: var(--color-texto);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.enlace-accion:last-child {
+    border-bottom: none;
+}
+
+.enlace-accion:hover {
+    color: var(--color-primario);
+    padding-left: 8px;
+}
+
+.enlace-accion .icono {
+    font-size: 18px;
+}
+
+.enlace-accion.enlace-peligro {
+    color: var(--color-error);
+}
+
+.enlace-accion.enlace-peligro:hover {
+    color: #c82333;
+}
+
+
+/* Reservas */
+
+.reservas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.reserva-card {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-gris-medio);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.reserva-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+}
+
+.reserva-imagen {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: var(--color-gris-claro);
+}
+
+.reserva-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.reserva-card:hover .reserva-imagen img {
+    transform: scale(1.05);
+}
+
+.badge-tipo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+}
+
+.badge-tipo.tipo-tour {
+    background: var(--color-primario);
+}
+
+.badge-tipo.tipo-hotel {
+    background: #007bff;
+}
+
+.badge-tipo.tipo-vuelo {
+    background: #6f42c1;
+}
+
+.reserva-info {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.reserva-info h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: var(--color-texto);
+}
+
+.reserva-info .fecha,
+.reserva-info .precio {
+    margin: 5px 0;
+    font-size: 13px;
+    color: var(--color-gris-oscuro);
+}
+
+.reserva-info .precio {
+    font-weight: 700;
+    color: var(--color-primario);
+    font-size: 16px;
+}
+
+.reserva-estado {
+    margin: 10px 0;
+}
+
+.estado {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.estado-confirmada {
+    background: rgba(40, 167, 69, 0.2);
+    color: #155724;
+}
+
+.estado-pendiente {
+    background: rgba(255, 193, 7, 0.2);
+    color: #856404;
+}
+
+.estado-cancelada {
+    background: rgba(220, 53, 69, 0.2);
+    color: #721c24;
+}
+
+.reserva-acciones {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-gris-medio);
+}
+
+.btn-small {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--color-gris-medio);
+    background: var(--color-blanco);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-detalles {
+    background: var(--color-primario);
+    color: white;
+    border-color: var(--color-primario);
+}
+
+.btn-detalles:hover {
+    background: var(--color-primario-dark);
+    border-color: var(--color-primario-dark);
+}
+
+.btn-small.btn-cancelar {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.btn-small.btn-cancelar:hover {
+    background: var(--color-error);
+    color: white;
+}
+
+
+/* Sin datos */
+
+.sin-datos {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--color-gris-oscuro);
+}
+
+.sin-datos p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.btn-explorar {
+    display: inline-block;
+    background: var(--color-primario);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-explorar:hover {
+    background: var(--color-primario-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-hover);
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .perfil-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        margin-top: -40px;
+    }
+    .perfil-stats {
+        justify-content: center;
+    }
+    .perfil-contenido {
+        grid-template-columns: 1fr;
+    }
+    .reservas-grid {
+        grid-template-columns: 1fr;
+    }
+    .stat .numero {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfil-container {
+        padding: 10px;
+    }
+    .perfil-cover {
+        height: 120px;
+    }
+    .perfil-avatar {
+        width: 100px;
+        height: 100px;
+    }
+    .perfil-datos h1 {
+        font-size: 20px;
+    }
+    .card {
+        padding: 15px;
+    }
+    .mensaje-estado {
+        left: 10px;
+        right: 10px;
+    }
+}

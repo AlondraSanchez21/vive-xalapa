@@ -1,0 +1,237 @@
+<div class="viajes-container">
+    <!-- HERO / BUSCADOR SUPERIOR -->
+    <div class="hero-search">
+        <div class="hero-content">
+            <h1>Encuentra tu vuelo perfecto</h1>
+            <p>Los mejores precios desde Xalapa y alrededores</p>
+        </div>
+
+        <div class="search-box">
+            <div class="tabs">
+                <button class="tab active">Ida y vuelta</button>
+                <button class="tab">Solo ida</button>
+                <button class="tab">Multidestino</button>
+            </div>
+
+            <form (ngSubmit)="buscar()" class="search-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Origen</label>
+                        <input type="text" [(ngModel)]="origin" name="origin" disabled class="input-disabled" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Destino</label>
+                        <select [(ngModel)]="destinationCode" name="destination" required class="input-select">
+                            <option value="">Selecciona destino</option>
+                            <option *ngFor="let a of airports" [value]="a.code">
+                                {{ a.name }} ({{ a.code }}) - {{ a.city }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Salida</label>
+                        <input type="date" [(ngModel)]="dateFrom" name="dateFrom" class="input-date" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Retorno</label>
+                        <input type="date" [(ngModel)]="dateTo" name="dateTo" class="input-date" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Pasajeros</label>
+                        <input type="number" min="1" max="9" [(ngModel)]="passengers" name="passengers" class="input-number" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Clase</label>
+                        <select [(ngModel)]="cabin" name="cabin" class="input-select">
+                            <option>Económica</option>
+                            <option>Premium</option>
+                            <option>Business</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-buscar">Buscar vuelos</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- RESULTADOS -->
+        <div class="results-section">
+            <div *ngIf="results.length > 0" class="results-wrapper">
+                <div class="results-header">
+                    <h2>{{ results.length }} vuelos disponibles</h2>
+                    <div class="sort-options">
+                        <select class="sort-select">
+                            <option>Recomendados</option>
+                            <option>Precio: Menor a Mayor</option>
+                            <option>Duración</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flights-list">
+                    <div class="flight-card" *ngFor="let vuelo of results" (click)="abrirModal(vuelo)">
+                        <div class="flight-left">
+                            <div class="airline-logo">
+                                <div class="airline-name">{{ vuelo.airline }}</div>
+                            </div>
+                        </div>
+
+                        <div class="flight-middle">
+                            <div class="times-section">
+                                <div class="time-info">
+                                    <span class="time-large">{{ vuelo.depTime }}</span>
+                                    <span class="airport-code">{{ vuelo.from.code }}</span>
+                                </div>
+                                <div class="flight-duration">
+                                    <div class="line"></div>
+                                    <span class="stops-info">
+                                        {{ vuelo.stops === 0 ? 'Directo' : vuelo.stops + ' escala(s)' }}
+                                    </span>
+                                    <span class="duration">{{ vuelo.duration }}</span>
+                                </div>
+                                <div class="time-info">
+                                    <span class="time-large">{{ vuelo.arrTime }}</span>
+                                    <span class="airport-code">{{ vuelo.to.code }}</span>
+                                </div>
+                            </div>
+                            <div class="flight-route">
+                                {{ vuelo.from.city }} → {{ vuelo.to.city }}
+                            </div>
+                        </div>
+
+                        <div class="flight-right">
+                            <div class="price-section">
+                                <div class="price">$ {{ vuelo.priceMXN | number }}</div>
+                                <div class="price-per-passenger">por pasajero</div>
+                            </div>
+                            <div class="services-quick">
+                                <span *ngIf="vuelo.stops === 0" class="badge-direct">✓ Directo</span>
+                                <span *ngIf="vuelo.services && vuelo.services.length > 0" class="badge-services">{{ vuelo.services.length }} servicios</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="results.length === 0 && results.length === 0" class="no-results">
+                <p>Selecciona un destino y haz clic en "Buscar vuelos" para ver opciones disponibles.</p>
+            </div>
+        </div>
+
+        <!-- CARRITO LATERAL -->
+        <aside class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Carrito</h3>
+                <span class="cart-count">{{ cart.length }}</span>
+            </div>
+
+            <div class="cart-content">
+                <div *ngIf="cart.length === 0" class="cart-empty">
+                    <p>📭 Sin vuelos</p>
+                    <small>Los vuelos que selecciones aparecerán aquí</small>
+                </div>
+
+                <div class="cart-items" *ngIf="cart.length > 0">
+                    <div class="cart-item" *ngFor="let item of cart; let i = index">
+                        <div class="item-info">
+                            <div class="item-airline">{{ item.flight.airline }}</div>
+                            <div class="item-route">
+                                {{ item.flight.from.code }} → {{ item.flight.to.code }}
+                            </div>
+                            <div class="item-details">
+                                {{ item.passengers }} pax · {{ item.cabin }}
+                            </div>
+                        </div>
+                        <div class="item-price">$ {{ item.totalPrice | number }}</div>
+                        <button class="btn-remove" (click)="quitarDelCarrito(i)">✕</button>
+                    </div>
+
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <strong>$ {{ calcularTotalCarrito() | number }}</strong>
+                        </div>
+                        <div class="summary-row">
+                            <span>Impuestos:</span>
+                            <strong>$ {{ (calcularTotalCarrito() * 0.16) | number }}</strong>
+                        </div>
+                        <div class="summary-row total">
+                            <span>TOTAL:</span>
+                            <strong>$ {{ (calcularTotalCarrito() * 1.16) | number }}</strong>
+                        </div>
+                    </div>
+
+                    <button class="btn-checkout" (click)="enviarOrden()">Proceder al pago</button>
+                    <button class="btn-clear" (click)="vaciarCarrito()">Vaciar carrito</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- MODAL DE DETALLES DEL VUELO -->
+<div *ngIf="mostrarModal && vueloSeleccionado" class="modal-backdrop" (click)="cerrarModal()">
+    <div class="modal-flight" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="cerrarModal()">✕</button>
+
+        <div class="modal-header">
+            <h2>{{ vueloSeleccionado.airline }} - Detalles del vuelo</h2>
+        </div>
+
+        <div class="modal-body">
+            <div class="modal-left">
+                <div class="detail-section">
+                    <h3>{{ vueloSeleccionado.depTime }} - {{ vueloSeleccionado.arrTime }}</h3>
+                    <p class="route-large">{{ vueloSeleccionado.from.city }} ({{ vueloSeleccionado.from.code }}) → {{ vueloSeleccionado.to.city }} ({{ vueloSeleccionado.to.code }})</p>
+
+                    <div class="flight-detail-info">
+                        <div class="info-item">
+                            <span class="label">Duración:</span>
+                            <span class="value">{{ vueloSeleccionado.duration }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Escalas:</span>
+                            <span class="value">{{ vueloSeleccionado.stops === 0 ? 'Directo' : vueloSeleccionado.stops + ' escala(s)' }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Clase:</span>
+                            <span class="value">{{ vueloSeleccionado.className }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section" *ngIf="vueloSeleccionado.services && vueloSeleccionado.services.length > 0">
+                    <h4>Servicios incluidos</h4>
+                    <ul class="services-list">
+                        <li *ngFor="let svc of vueloSeleccionado.services">✓ {{ svc }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-right">
+                <div class="price-box">
+                    <div class="price-title">Precio por pasajero</div>
+                    <div class="price-large">$ {{ vueloSeleccionado.priceMXN | number }}</div>
+                    <div class="price-breakdown">
+                        <p>Pasajeros: <strong>{{ passengers }}</strong></p>
+                        <p>Total: <strong>$ {{ vueloSeleccionado.priceMXN * passengers | number }}</strong></p>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button class="btn-add-cart" (click)="agregarAlCarrito(vueloSeleccionado)">
+                            Agregar al carrito
+                        </button>
+                        <button class="btn-cancel" (click)="cerrarModal()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

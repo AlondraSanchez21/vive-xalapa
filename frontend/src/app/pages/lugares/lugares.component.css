@@ -1,0 +1,207 @@
+/* --- HERO SE QUEDA IGUAL --- */
+
+.hero {
+    height: 45vh;
+    background: url('/assets/lugares/hero-xalapa.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.hero .contenido {
+    position: relative;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+
+/* --- FILTROS --- */
+
+.filtros {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.filtros button {
+    margin: 0 8px;
+    padding: 8px 22px;
+    border-radius: 25px;
+    border: 1px solid #2c6e49;
+    background: #fff;
+    color: #2c6e49;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.filtros button:hover,
+.filtros .activo {
+    background: #2c6e49;
+    color: #fff;
+}
+
+
+/* --- GRID --- */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 35px;
+    padding: 0 40px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: 0.3s;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+
+/* IMG */
+
+.img-container {
+    position: relative;
+}
+
+.img-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.categoria-tag {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #2c6e49;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+
+/* INFO */
+
+.info {
+    padding: 20px;
+}
+
+.info h3 {
+    color: #2c6e49;
+    margin-bottom: 10px;
+}
+
+
+/* RATING */
+
+.rating .estrella {
+    color: #ffd700;
+}
+
+.rating i {
+    margin-right: 2px;
+}
+
+
+/* MINI REVIEW */
+
+.mini-review {
+    background: #f2f8f3;
+    border-left: 4px solid #2c6e49;
+    padding: 10px;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+.mini-review i {
+    color: #2c6e49;
+    margin-right: 5px;
+}
+
+
+/* BUTTON */
+
+.btn {
+    margin-top: 15px;
+    background: #2c6e49;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #1e4a34;
+}
+
+
+/* MAPA */
+
+.mapa {
+    margin: 40px 0;
+    padding: 0 40px;
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    padding: 20px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.cerrar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}

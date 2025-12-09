@@ -1,0 +1,182 @@
+<!-- HERO -->
+<section class="hero">
+    <div class="overlay"></div>
+    <div class="contenido">
+        <h1>Restaurantes cerca de Xalapa</h1>
+        <p>Descubre los mejores lugares para comer en la ciudad.</p>
+    </div>
+</section>
+
+<!-- LAYOUT: FILTROS, LISTA, MAPA -->
+<div class="layout">
+
+    <!-- FILTROS IZQUIERDA -->
+    <aside class="sidebar">
+        <h3>Filtros</h3>
+
+        <div class="filtro-section">
+            <button class="btn-mapa" onclick="alert('Mapa: Próximamente')">🗺️ Mapa</button>
+        </div>
+
+        <div class="filtro-section">
+            <h4>Precios</h4>
+            <div class="precios">
+                <button (click)="filtroPrecio = '$'; filtrar()" [class.activo]="filtroPrecio === '$'" class="precio-btn">$</button>
+
+                <button (click)="filtroPrecio = '$$'; filtrar()" [class.activo]="filtroPrecio === '$$'" class="precio-btn">$$</button>
+
+                <button (click)="filtroPrecio = '$$$'; filtrar()" [class.activo]="filtroPrecio === '$$$'" class="precio-btn">$$$</button>
+
+                <button (click)="filtroPrecio = '$$$$'; filtrar()" [class.activo]="filtroPrecio === '$$$$'" class="precio-btn">$$$$</button>
+            </div>
+        </div>
+
+        <div class="filtro-section">
+            <h4>Categoría</h4>
+
+            <div class="categorias-filter">
+                <label *ngFor="let cat of categorias" class="categoria-label">
+                    <input type="radio" 
+                           name="categoria" 
+                           [value]="cat"
+                           [(ngModel)]="filtroCategoria"
+                           (change)="filtrar()" />
+                    <span>{{ cat }}</span>
+                </label>
+
+                <label class="categoria-label">
+                    <input type="radio" 
+                           name="categoria"
+                           value=""
+                           [(ngModel)]="filtroCategoria"
+                           (change)="filtrar()"/>
+                    <span>Todos</span>
+                </label>
+            </div>
+        </div>
+
+        <button class="btn-limpiar" (click)="limpiarFiltros()">Limpiar filtros</button>
+    </aside>
+
+    <!-- LISTA DE RESTAURANTES -->
+    <main class="lista">
+
+        <div class="resultados-header">
+            <p>{{ filtrados.length }} restaurantes cercanos disponibles</p>
+
+            <select class="ordenar">
+                <option>Destacados</option>
+                <option>Mejor puntuado</option>
+                <option>Más cercano</option>
+            </select>
+        </div>
+
+        <div class="buscador-box">
+            <input type="text" [(ngModel)]="buscador" (input)="filtrar()" placeholder="Ubicación o restaurante" />
+        </div>
+
+        <div *ngIf="loading" class="loading">Cargando restaurantes...</div>
+
+        <!-- TARJETAS -->
+        <div class="card" *ngFor="let item of filtrados" (click)="abrirModal(item)">
+
+            <img [src]="item.imagen" alt="{{ item.nombre }}" class="card-img" onerror="this.src='https://via.placeholder.com/500x300?text=Restaurante'" />
+
+            <div class="card-info">
+
+                <div class="card-top">
+                    <h3>{{ item.nombre }}</h3>
+                    <div class="rating">⭐ {{ item.rating }}</div>
+                </div>
+
+                <p class="meta-info">{{ item.precio }} • {{ item.tipo }} • {{ item.colonia }}</p>
+
+                <p class="descripcion">{{ item.descripcion }}</p>
+
+                <div class="tags">
+                    <span *ngFor="let servicio of item.servicios" class="tag">{{ servicio }}</span>
+                </div>
+
+                <div class="time-slots">
+                    <button class="time-btn" *ngFor="let hora of item.horariosDisponibles | slice:0:5">
+                        {{ hora }}
+                    </button>
+                </div>
+
+                <a href="javascript:void(0)" class="mas-info">Más información</a>
+            </div>
+        </div>
+
+        <div *ngIf="filtrados.length === 0 && !loading" class="no-resultados">
+            No se encontraron restaurantes con esos filtros.
+        </div>
+
+    </main>
+
+    <!-- MAPA -->
+    <div class="mapa">
+        <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD9YZ5tMLjIlgX-7jGFLb5D7-seLh0cFrE&q=Xalapa,Veracruz">
+        </iframe>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div *ngIf="mostrarModal" class="modal-backdrop" (click)="cerrarModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+            <h2>{{ restauranteSeleccionado?.nombre }}</h2>
+            <button class="close-btn" (click)="cerrarModal()">✕</button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="modal-left">
+                <img [src]="restauranteSeleccionado?.imagen" alt="{{ restauranteSeleccionado?.nombre }}" onerror="this.src='https://via.placeholder.com/400x300?text=Restaurante'" />
+
+                <div class="info-box">
+                    <p><strong>📍 Ubicación:</strong> {{ restauranteSeleccionado?.colonia }}</p>
+                    <p><strong>☎️ Teléfono:</strong> {{ restauranteSeleccionado?.telefono || 'N/A' }}</p>
+                    <p><strong>🕐 Horario:</strong> {{ restauranteSeleccionado?.horario || 'N/A' }}</p>
+                    <p><strong>🍽️ Tipo:</strong> {{ restauranteSeleccionado?.tipo }}</p>
+                </div>
+
+                <button class="btn-maps" (click)="abrirEnMaps()">📍 Abrir en Google Maps</button>
+            </div>
+
+            <div class="modal-right">
+
+                <div class="rating-section">
+                    <h3>⭐ {{ restauranteSeleccionado?.rating }}</h3>
+                    <p class="precio">{{ restauranteSeleccionado?.precio }}</p>
+                </div>
+
+                <div class="descripcion-completa">
+                    <h4>Descripción</h4>
+                    <p>{{ restauranteSeleccionado?.descripcion }}</p>
+                </div>
+
+                <div class="servicios-list">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li *ngFor="let servicio of restauranteSeleccionado?.servicios">
+                            ✓ {{ servicio }}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="horarios-disponibles">
+                    <h4>Horarios disponibles</h4>
+                    <div class="time-slots-modal">
+                        <button class="time-btn-modal" *ngFor="let hora of restauranteSeleccionado?.horariosDisponibles">
+                            {{ hora }}
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn-reservar" (click)="agregarAlCarrito()">🛒 Agregar al carrito</button>
+            </div>
+
+        </div>
+    </div>
+</div>

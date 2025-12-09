@@ -1,0 +1,15 @@
+<div class="sidebar" [class.open]="sidebarOpen">
+    <div class="sidebar-header p-3 d-flex justify-content-between">
+        <h4>Menú</h4>
+        <button class="btn-close" (click)="toggleSidebar()"></button>
+    </div>
+
+    <div class="sidebar-body d-flex flex-column px-3">
+        <a routerLink="/admin" class="btn btn-dark mb-2">Inicio</a>
+        <a routerLink="/admin/productos" class="btn btn-dark mb-2">Productos</a>
+        <a routerLink="/admin/hoteles" class="btn btn-dark mb-2">Hoteles</a>
+        <a routerLink="/admin/tours" class="btn btn-dark mb-2">Tours</a>
+        <a routerLink="/admin/vuelos" class="btn btn-dark mb-2">Vuelos</a>
+        <a routerLink="/admin/usuarios" class="btn btn-dark mb-2">Usuarios</a>
+    </div>
+</div>

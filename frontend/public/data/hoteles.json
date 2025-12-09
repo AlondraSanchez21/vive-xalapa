@@ -1,0 +1,73 @@
+[{
+        "id": 1,
+        "name": "Colombe Hotel Boutique",
+        "location": "Centro, Xalapa",
+        "priceMXN": 1200,
+        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/12345678.jpg"],
+        "description": "Hotel boutique con alberca, restaurante y excelente ubicación en el centro de Xalapa.",
+        "rooms": [
+            { "name": "Estándar", "beds": "1 cama king", "priceMXN": 1200 },
+            { "name": "Familiar", "beds": "2 camas queen", "priceMXN": 1500 }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Holiday Inn Express Xalapa",
+        "location": "Zona Universitaria",
+        "priceMXN": 1500,
+        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/23456789.jpg"],
+        "description": "Hotel moderno con desayuno incluido, cerca de la zona universitaria.",
+        "rooms": [
+            { "name": "Estándar", "beds": "1 cama king", "priceMXN": 1500 },
+            { "name": "Suite", "beds": "1 cama king + sala", "priceMXN": 1800 }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Hotel Boutique Arenal",
+        "location": "Arenal, Xalapa",
+        "priceMXN": 900,
+        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/34567890.jpg"],
+        "description": "Hotel económico con habitaciones cómodas y wifi gratis.",
+        "rooms": [
+            { "name": "Estándar", "beds": "1 cama matrimonial", "priceMXN": 900 },
+            { "name": "Familiar", "beds": "2 camas individuales", "priceMXN": 1100 }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Gamma Xalapa Nubara",
+        "location": "Las Ánimas",
+        "priceMXN": 1300,
+        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/45678901.jpg"],
+        "description": "Hotel con alberca techada, gimnasio y restaurante.",
+        "rooms": [
+            { "name": "Estándar", "beds": "1 cama king", "priceMXN": 1300 },
+            { "name": "Suite", "beds": "1 cama king + sala", "priceMXN": 1700 }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Hotel Misión Xalapa Plaza",
+        "location": "Centro, Xalapa",
+        "priceMXN": 1000,
+        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/56789012.jpg"],
+        "description": "Hotel céntrico con restaurante y estacionamiento.",
+        "rooms": [
+            { "name": "Estándar", "beds": "1 cama queen", "priceMXN": 1000 },
+            { "name": "Familiar", "beds": "2 camas individuales", "priceMXN": 1200 }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Hotel Klimt Xalapa",
+        "location": "Zona Centro",
+        "priceMXN": 950,
+        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/67890123.jpg"],
+        "description": "Hotel moderno con habitaciones temáticas y desayuno incluido.",
+        "rooms": [
+            { "name": "Estándar", "beds": "1 cama matrimonial", "priceMXN": 950 },
+            { "name": "Suite", "beds": "1 cama king + jacuzzi", "priceMXN": 1400 }
+        ]
+    }
+]

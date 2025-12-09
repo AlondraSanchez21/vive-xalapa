@@ -1,0 +1,133 @@
+<div class="perfil-container" *ngIf="!cargando; else loading">
+    <!-- Mensaje de estado -->
+    <div class="mensaje-estado" *ngIf="mostrarMensaje">
+        {{ mensajeExito }}
+    </div>
+
+    <!-- Header del perfil -->
+    <div class="perfil-header">
+        <div class="perfil-cover"></div>
+        <div class="perfil-info">
+            <div class="perfil-avatar">
+                <img [src]="usuario?.fotoPerfil || 'assets/user-default.jpg'" [alt]="usuario?.nombre" />
+            </div>
+            <div class="perfil-datos">
+                <h1>{{ usuario?.nombre }}</h1>
+                <p class="miembro-desde">Miembro desde 2024</p>
+                <div class="perfil-stats">
+                    <div class="stat">
+                        <span class="numero">12</span>
+                        <span class="label">Favoritos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="numero">{{ reservas.length }}</span>
+                        <span class="label">Reservas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="numero">4.5</span>
+                        <span class="label">Calificación</span>
+                    </div>
+                </div>
+            </div>
+            <div class="perfil-acciones">
+                <button class="btn-editar" (click)="toggleEditMode()" *ngIf="!editMode">
+          ✎ Editar Perfil
+        </button>
+                <div class="btns-grupo" *ngIf="editMode">
+                    <button class="btn-guardar" (click)="guardarCambios()">Guardar</button>
+                    <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="perfil-contenido">
+        <!-- Panel izquierdo: Información personal -->
+        <aside class="panel-izquierdo">
+            <div class="card">
+                <h3>Información Personal</h3>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="usuario!.email" [disabled]="!editMode" />
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" [(ngModel)]="usuario!.telefono" [disabled]="!editMode" />
+                </div>
+                <div class="form-group">
+                    <label>País</label>
+                    <input type="text" [(ngModel)]="usuario!.pais" [disabled]="!editMode" />
+                </div>
+                <div class="form-group">
+                    <label>Ciudad</label>
+                    <input type="text" [(ngModel)]="usuario!.ciudad" [disabled]="!editMode" />
+                </div>
+            </div>
+
+            <div class="card card-acciones">
+                <h3>Acciones</h3>
+                <a href="#" class="enlace-accion">
+                    <span class="icono">❤️</span> Mis Favoritos
+                </a>
+                <a href="#" class="enlace-accion">
+                    <span class="icono">⭐</span> Mis Reseñas
+                </a>
+                <a href="#" class="enlace-accion">
+                    <span class="icono">⚙️</span> Configuración
+                </a>
+                <a href="#" class="enlace-accion enlace-peligro">
+                    <span class="icono">🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
+
+        <!-- Panel derecho: Reservas -->
+        <main class="panel-derecho">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Mis Reservas Recientes</h3>
+                    <span class="badge">{{ reservas.length }}</span>
+                </div>
+
+                <div class="reservas-grid" *ngIf="reservas.length > 0; else sinReservas">
+                    <div class="reserva-card" *ngFor="let reserva of reservas">
+                        <div class="reserva-imagen">
+                            <div class="placeholder-img"></div>
+                            <span class="badge-tipo" [class]="'tipo-' + reserva.itemType">
+                {{ getTipoTexto(reserva.itemType) }}
+              </span>
+                        </div>
+                        <div class="reserva-info">
+                            <h4>{{ reserva.nombreItem }}</h4>
+                            <p class="fecha">📅 {{ reserva.fecha | date: 'dd/MM/yyyy' }}</p>
+                            <p class="precio">${{ reserva.precioFinal | number: '1.0-0' }}</p>
+                            <div class="reserva-estado">
+                                <span [class]="'estado ' + getEstadoClass(reserva.estado)">
+                  {{ getEstadoTexto(reserva.estado) }}
+                </span>
+                            </div>
+                            <div class="reserva-acciones">
+                                <button class="btn-small btn-detalles">Ver Detalles</button>
+                                <button class="btn-small btn-cancelar" (click)="eliminarReserva(reserva.id!)" *ngIf="reserva.estado !== 'cancelada'">
+                  Cancelar
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #sinReservas>
+                    <div class="sin-datos">
+                        <p>📭 No tienes reservas aún</p>
+                        <a href="/tours" class="btn-explorar">Explorar Tours</a>
+                    </div>
+                </ng-template>
+            </div>
+        </main>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="cargando">Cargando perfil...</div>
+</ng-template>

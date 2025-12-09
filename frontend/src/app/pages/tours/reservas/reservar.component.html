@@ -1,0 +1,41 @@
+<section class="reserva-container">
+
+    <h1>Reservar: {{ tour?.nombre }}</h1>
+
+    <div class="card">
+        <h3>Detalles de la experiencia</h3>
+
+        <label>Selecciona la fecha</label>
+        <input type="date" [(ngModel)]="fecha">
+
+        <label>Cantidad de personas</label>
+        <input type="number" min="1" [(ngModel)]="cantidad">
+
+        <p><strong>Fecha seleccionada:</strong> {{ fecha }}</p>
+        <p><strong>Personas:</strong> {{ cantidad }}</p>
+        <p><strong>Total:</strong> ${{ calcularTotal() }} MXN</p>
+    </div>
+
+    <div class="formulario">
+
+        <h3>Datos del cliente</h3>
+
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="nombre">
+
+        <label>Apellidos</label>
+        <input type="text" [(ngModel)]="apellidos">
+
+        <label>Teléfono</label>
+        <input type="tel" [(ngModel)]="telefono">
+
+        <label>Correo electrónico</label>
+        <input type="email" [(ngModel)]="correo">
+
+        <label>Comentarios</label>
+        <textarea rows="3" [(ngModel)]="comentarios"></textarea>
+
+        <button class="btn" (click)="enviar()">Confirmar reserva</button>
+    </div>
+
+</section>
