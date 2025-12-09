@@ -14,12 +14,23 @@ export class Visor3DComponent implements AfterViewInit {
   @Input() imagenUrl: string = '';
 
   ngAfterViewInit(): void {
+
     const viewer = new PANOLENS.Viewer({
       container: this.viewerContainer.nativeElement,
-      pixelRatio: window.devicePixelRatio
+      controlBar: true,
+      autoRotate: false,
+      autoRotateSpeed: 0.3,
+      output: 'console',
+      cameraFov: 70,
+      pixelRatio: 2   // fuerza más calidad
     });
 
     const panorama = new PANOLENS.ImagePanorama(this.imagenUrl);
+
+    panorama.addEventListener('progress', (e: any) => {
+      console.log("Cargando imagen panorámica...");
+    });
+
     viewer.add(panorama);
   }
 }
