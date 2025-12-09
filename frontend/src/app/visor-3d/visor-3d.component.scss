@@ -1,0 +1,17 @@
+.visor-3d-container {
+  width: 100%;
+  max-width: 600px;    // tamaño moderado para NO deformar
+  height: 300px;       // ajusta si quieres
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.visor-3d-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: high-quality; 
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+}

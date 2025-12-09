@@ -29,8 +29,9 @@
         "@angular/platform-browser": "^20.3.0",
         "@angular/router": "^20.3.0",
         "pannellum": "^2.5.6",
+        "panolens": "^0.12.1",
         "rxjs": "~7.8.0",
-        "three": "^0.160.0",
+        "three": "^0.160.1",
         "tslib": "^2.3.0",
         "zone.js": "~0.15.0"
     },
