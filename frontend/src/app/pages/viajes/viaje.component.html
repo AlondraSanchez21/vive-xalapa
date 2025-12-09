@@ -17,14 +17,19 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Origen</label>
-                        <input type="text" [(ngModel)]="origin" name="origin" disabled class="input-disabled" />
+                        <select [(ngModel)]="origin" name="origin" required class="input-select">
+                            <option value="">Selecciona origen</option>
+                            <option *ngFor="let a of airports" [value]="a.code">
+                                {{ a.name }} ({{ a.code }}) - {{ a.city }}
+                            </option>
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label>Destino</label>
                         <select [(ngModel)]="destinationCode" name="destination" required class="input-select">
                             <option value="">Selecciona destino</option>
-                            <option *ngFor="let a of airports" [value]="a.code">
+                            <option *ngFor="let a of destinationAirports" [value]="a.code">
                                 {{ a.name }} ({{ a.code }}) - {{ a.city }}
                             </option>
                         </select>

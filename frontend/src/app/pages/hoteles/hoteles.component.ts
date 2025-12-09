@@ -1,9 +1,9 @@
-
-
  import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth';
+import { ResenasService, Resena } from '../../services/resenas.service';
+import { FavoritosService } from '../../services/favoritos.service';
 import { Usuario } from '../../models/usuario.model';
 
 interface Hotel {
@@ -42,6 +42,9 @@ interface Reservation {
   styleUrls: ['./hoteles.component.css'],
 })
 export class HotelesComponent implements OnInit {
+  // Expose Math for template
+  Math = Math;
+  
   // Lista de hoteles (mock) con imágenes, descripción, habitaciones y coords de ejemplo
   hotels: Hotel[] = [
     {
@@ -124,6 +127,16 @@ export class HotelesComponent implements OnInit {
   // Reservas guardadas
   reservations: Reservation[] = [];
 
+  // Reseñas (comentarios y calificaciones)
+  resenas: Resena[] = [];
+  showResenaForm: boolean = false;
+  resenaForm: Partial<Resena> = {
+    tipo: 'hotel',
+    calificacion: 5,
+    texto: '',
+    titulo: ''
+  };
+
   // Estado auth
   isLoggedIn: boolean = false;
   usuario: Usuario | null = null;
@@ -138,13 +151,21 @@ export class HotelesComponent implements OnInit {
 
   currentPromo = this.promos[0];
 
+  // Favoritos
+  favoritosIds: string[] = [];
+
   // Constructor
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private resenasService: ResenasService, private favoritosService: FavoritosService) {
     this.loadReservations();
 
     // suscribir estado de auth para descuentos y UI
     this.authService.isLoggedIn$.subscribe(v => this.isLoggedIn = !!v);
     this.authService.usuario$.subscribe(u => this.usuario = u);
+    
+    // Load favoritos
+    this.favoritosService.favoritos$.subscribe((favs: string[]) => {
+      this.favoritosIds = favs;
+    });
   }
 
   ngOnInit() {
@@ -156,6 +177,43 @@ export class HotelesComponent implements OnInit {
         this.showMunicipiosModal = false;
       });
     } catch {}
+  }
+
+  loadResenasForHotel(hotelId: string) {
+    const hotelIdNum = parseInt(hotelId.replace('h', ''), 10) || 1;
+    this.resenasService.getResenas('hotel', hotelIdNum).subscribe({
+      next: (data) => this.resenas = data,
+      error: (err) => console.log('Error cargando reseñas:', err)
+    });
+  }
+
+  addResena() {
+    if (!this.isLoggedIn || !this.usuario) {
+      alert('Debes iniciar sesión para comentar');
+      return;
+    }
+    if (!this.resenaForm.texto) {
+      alert('El comentario no puede estar vacío');
+      return;
+    }
+    const hotelId = parseInt(this.selectedHotelId.replace('h', ''), 10) || 1;
+    const resena: Resena = {
+      usuario_id: parseInt(this.usuario.id as string) || 0,
+      tipo: 'hotel',
+      producto_id: hotelId,
+      calificacion: this.resenaForm.calificacion || 5,
+      titulo: this.resenaForm.titulo || 'Sin título',
+      texto: this.resenaForm.texto || ''
+    };
+    this.resenasService.createResena(resena).subscribe({
+      next: () => {
+        this.loadResenasForHotel(this.selectedHotelId);
+        this.resenaForm = { tipo: 'hotel', calificacion: 5, texto: '', titulo: '' };
+        this.showResenaForm = false;
+        alert('Comentario agregado exitosamente');
+      },
+      error: (err) => console.error('Error al crear reseña:', err)
+    });
   }
 
   setPromo(key: string) {
@@ -187,6 +245,7 @@ export class HotelesComponent implements OnInit {
     this.activeHotel = h;
     this.activeImageIndex = 0;
     this.showHotelModal = true;
+    this.loadResenasForHotel(hotelId);
   }
 
   closeHotelModal() {
@@ -306,5 +365,28 @@ export class HotelesComponent implements OnInit {
   removeReservation(idx: number) {
     this.reservations.splice(idx, 1);
     this.saveReservations();
+  }
+
+  toggleFavorito(hotelId: string) {
+    if (!this.isLoggedIn) {
+      alert('Debes iniciar sesión para agregar favoritos');
+      return;
+    }
+    
+    if (this.favoritosIds.includes(hotelId)) {
+      this.favoritosService.eliminarFavorito(hotelId).subscribe(
+        () => console.log('Eliminado de favoritos'),
+        (err) => console.error('Error:', err)
+      );
+    } else {
+      this.favoritosService.agregarFavorito(hotelId).subscribe(
+        () => console.log('Agregado a favoritos'),
+        (err) => console.error('Error:', err)
+      );
+    }
+  }
+
+  isFavorito(hotelId: string): boolean {
+    return this.favoritosIds.includes(hotelId);
   }
 }

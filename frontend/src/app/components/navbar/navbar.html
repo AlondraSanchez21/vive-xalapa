@@ -8,42 +8,13 @@
             </a>
         </div>
 
-        <!-- Desktop Navigation -->
+        <!-- Desktop Navigation (links en línea en vez de dropdowns) -->
         <nav class="navbar-nav desktop-only">
-            <div class="nav-group">
-                <button class="nav-link dropdown-trigger" (mouseenter)="openDescubrir()" (mouseleave)="closeDescubrir()">
-          Descubrir <span class="dropdown-icon">▼</span>
-        </button>
-                <div class="dropdown-menu" *ngIf="dropdownDescubrir" (mouseenter)="openDescubrir()" (mouseleave)="closeDescubrir()">
-                    <a routerLink="/lugares" routerLinkActive="active" class="dropdown-item">
-                        <span class="icon">📍</span> Lugares Turísticos
-                    </a>
-                    <a routerLink="/gastronomia" routerLinkActive="active" class="dropdown-item">
-                        <span class="icon">🍽️</span> Gastronomía
-                    </a>
-                    <a routerLink="/viajes" routerLinkActive="active" class="dropdown-item">
-                        <span class="icon">✈️</span> Viajes
-                    </a>
-                </div>
-            </div>
-
-            <div class="nav-group">
-                <button class="nav-link dropdown-trigger" (mouseenter)="openReservar()" (mouseleave)="closeReservar()">
-          Reservar <span class="dropdown-icon">▼</span>
-        </button>
-                <div class="dropdown-menu" *ngIf="dropdownReservar" (mouseenter)="openReservar()" (mouseleave)="closeReservar()">
-                    <a routerLink="/hoteles" routerLinkActive="active" class="dropdown-item">
-                        <span class="icon">🏨</span> Hoteles
-                    </a>
-                    <a routerLink="/tours" routerLinkActive="active" class="dropdown-item">
-                        <span class="icon">🎒</span> Tours
-                    </a>
-
-                </div>
-            </div>
-
-            <a routerLink="/tours" class="nav-link">Tours</a>
+            <a routerLink="/lugares" class="nav-link">Lugares</a>
+            <a routerLink="/gastronomia" class="nav-link">Gastronomía</a>
+            <a routerLink="/viajes" class="nav-link">Viajes</a>
             <a routerLink="/hoteles" class="nav-link">Hoteles</a>
+            <a routerLink="/tours" class="nav-link">Tours</a>
         </nav>
 
         <!-- Right Actions -->

@@ -3,7 +3,7 @@
         "name": "Colombe Hotel Boutique",
         "location": "Centro, Xalapa",
         "priceMXN": 1200,
-        "images": ["https://cf.bstatic.com/xdata/images/hotel/max1024x768/12345678.jpg"],
+        "images": ["img/habitacion1.jpg"],
         "description": "Hotel boutique con alberca, restaurante y excelente ubicación en el centro de Xalapa.",
         "rooms": [
             { "name": "Estándar", "beds": "1 cama king", "priceMXN": 1200 },

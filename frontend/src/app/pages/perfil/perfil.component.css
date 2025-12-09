@@ -1,0 +1,267 @@
+/* Estilos para la página de perfil - tema verdoso */
+
+.perfil-container {
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    color: #163116;
+    padding: 18px;
+    max-width: 1100px;
+    margin: 18px auto;
+}
+
+.mensaje-estado {
+    background: #e6f4ea;
+    border: 1px solid #c6e9ce;
+    color: #1b5e20;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.perfil-header {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(22, 49, 22, 0.06);
+    margin-bottom: 18px;
+}
+
+.perfil-cover {
+    height: 110px;
+    background: linear-gradient(90deg, #a8e6a3 0%, #6bc36a 50%, #4fa64f 100%);
+}
+
+.perfil-info {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 12px 18px;
+}
+
+.perfil-avatar img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(15, 83, 18, 0.12);
+}
+
+.perfil-datos h1 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    color: #0b4620;
+}
+
+.miembro-desde {
+    font-size: 12px;
+    color: rgba(11, 70, 32, 0.8);
+    margin-bottom: 8px;
+}
+
+.perfil-stats {
+    display: flex;
+    gap: 12px;
+}
+
+.perfil-stats .stat {
+    text-align: center;
+}
+
+.perfil-stats .numero {
+    display: block;
+    font-weight: 700;
+    color: #0b662b;
+}
+
+.perfil-stats .label {
+    font-size: 12px;
+    color: rgba(11, 70, 32, 0.7);
+}
+
+.perfil-acciones {
+    margin-left: auto;
+}
+
+.btn-editar,
+.btn-guardar,
+.btn-cancelar {
+    background: #1b8f3b;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-cancelar {
+    background: #e0e0e0;
+    color: #163116;
+}
+
+.perfil-contenido {
+    display: flex;
+    gap: 18px;
+    margin-top: 14px;
+}
+
+.panel-izquierdo {
+    width: 320px;
+}
+
+.panel-derecho {
+    flex: 1;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 6px 16px rgba(13, 31, 13, 0.04);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #0b5526
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    color: rgba(11, 70, 32, 0.8);
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #e6f0ea;
+    background: #fbfffb;
+}
+
+.card-acciones .enlace-accion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 6px;
+    color: #0b5526;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.card-acciones .enlace-peligro {
+    color: #a32c2c;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.badge {
+    background: #e9f6ea;
+    color: #1b7c36;
+    padding: 6px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.reservas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.reserva-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.reserva-imagen .placeholder-img {
+    width: 110px;
+    height: 70px;
+    background: linear-gradient(135deg, #e6f4ea, #d2efcf);
+    border-radius: 8px;
+}
+
+.badge-tipo {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 12px;
+    background: #f0fff3;
+    color: #0b6b2b
+}
+
+.reserva-info h4 {
+    margin: 0 0 6px 0;
+}
+
+.reserva-info .fecha {
+    font-size: 13px;
+    color: rgba(11, 70, 32, 0.7);
+}
+
+.reserva-info .precio {
+    font-weight: 700;
+    color: #0b5526;
+    margin-top: 6px;
+}
+
+.reserva-acciones {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px
+}
+
+.btn-small {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer
+}
+
+.btn-detalles {
+    background: #f3fff4;
+    color: #0b6b2b
+}
+
+.btn-cancelar {
+    background: #ffdede;
+    color: #7a1a1a
+}
+
+.sin-datos {
+    text-align: center;
+    padding: 28px 10px
+}
+
+.btn-explorar {
+    background: #1b8f3b;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none
+}
+
+@media (max-width: 860px) {
+    .perfil-contenido {
+        flex-direction: column;
+    }
+    .panel-izquierdo {
+        width: 100%;
+    }
+    .reservas-grid {
+        grid-template-columns: 1fr;
+    }
+}

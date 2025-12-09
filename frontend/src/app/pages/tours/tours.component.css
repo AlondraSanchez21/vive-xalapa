@@ -130,10 +130,11 @@
     backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 20px;
+    align-items: flex-start;
+    padding: 28px 12px 20px;
     z-index: 1000;
     animation: fadeIn .3s ease;
+    overflow: auto;
 }
 
 
@@ -149,14 +150,16 @@
 }
 
 .modal {
-    width: 95%;
-    max-width: 1050px;
+    width: 92%;
+    max-width: 900px;
     background: #fff;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 5px 25px #0004;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
     position: relative;
     animation: pop .25s ease;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
 }
 
 @keyframes pop {
@@ -207,10 +210,10 @@
 
 .galeria-principal img {
     width: 100%;
-    height: 330px;
+    height: 260px;
     object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px #0002;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -322,6 +325,27 @@
 
 .btn-reservar:hover {
     background: #0a4d2f;
+}
+
+.disponibilidad-panel .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(12, 95, 57, 0.06);
+}
+
+.disponibilidad-panel label {
+    display: block;
+    margin-top: 8px;
+    font-weight: 600
+}
+
+.disponibilidad-panel input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-top: 6px
 }
 
 

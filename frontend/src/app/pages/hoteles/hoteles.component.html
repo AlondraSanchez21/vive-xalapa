@@ -50,6 +50,9 @@
                 <div class="card-actions">
                     <button (click)="openHotelModal(h.id)" class="btn-primary">Ver detalles</button>
                     <button (click)="selectedHotelId = h.id; showReservaModal = true" class="btn-secondary">Reservar</button>
+                    <button (click)="toggleFavorito(h.id)" class="btn-favorito" [ngClass]="{'favorito': isFavorito(h.id)}">
+                        {{ isFavorito(h.id) ? '❤️' : '🤍' }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -167,7 +170,7 @@
             <div class="left">
                 <div class="image-frame">
                     <button class="img-nav left" (click)="prevImage()">‹</button>
-                    <img [src]="activeHotel?.images && activeHotel?.images.length ? activeHotel.images[activeImageIndex] : '/assets/hotel-placeholder.png'" alt="{{ activeHotel?.name }}">
+                    <img [src]="activeHotel?.images && activeHotel.images.length ? activeHotel.images[activeImageIndex] || '/assets/hotel-placeholder.png' : '/assets/hotel-placeholder.png'" alt="{{ activeHotel?.name }}">
                     <button class="img-nav right" (click)="nextImage()">›</button>
                 </div>
 
@@ -191,11 +194,60 @@
                         <div>
                             <div class="price">
                                 <ng-container *ngIf="activeHotel">
-                                    <span class="final">$ {{ Math.round(room.priceMXN * (1 - (isLoggedIn ? 0.1 : 0))) }} MXN</span>
+                                    <span class="final">$ {{ (room.priceMXN * (1 - (isLoggedIn ? 0.1 : 0))) | number:'1.0-0' }} MXN</span>
                                     <small class="orig">$ {{ room.priceMXN }} MXN</small>
                                 </ng-container>
                             </div>
                             <button class="btn-primary" (click)="openReservaFromHotel()">Reservar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMENTARIOS Y CALIFICACIONES -->
+                <h4 style="margin-top: 20px;">Comentarios y Calificaciones</h4>
+
+                <!-- Mostrar comentarios existentes -->
+                <div class="resenas-list" *ngIf="resenas.length > 0; else noResenas">
+                    <div class="resena-item" *ngFor="let r of resenas" style="border: 1px solid #ddd; padding: 12px; margin: 8px 0; border-radius: 4px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <strong>{{ r.usuario_nombre }}</strong>
+                            <span style="color: #ff9800;">★ {{ r.calificacion }}</span>
+                        </div>
+                        <p style="font-size: 12px; color: #666; margin: 4px 0;">{{ r.created_at | date: 'short' }}</p>
+                        <p><strong>{{ r.titulo }}</strong></p>
+                        <p>{{ r.texto }}</p>
+                    </div>
+                </div>
+                <ng-template #noResenas>
+                    <p style="color: #999;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+                </ng-template>
+
+                <!-- Formulario para agregar comentario (solo usuarios logueados) -->
+                <div *ngIf="isLoggedIn" style="margin-top: 16px; background: #f9f9f9; padding: 12px; border-radius: 4px;">
+                    <button *ngIf="!showResenaForm" (click)="showResenaForm = true" style="background: #2196F3; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Agregar comentario</button>
+
+                    <div *ngIf="showResenaForm">
+                        <div style="margin-bottom: 8px;">
+                            <label>Calificación:</label>
+                            <select [(ngModel)]="resenaForm.calificacion" style="width: 100%; padding: 6px;">
+                                <option [value]="1">1 - Muy malo</option>
+                                <option [value]="2">2 - Malo</option>
+                                <option [value]="3">3 - Regular</option>
+                                <option [value]="4">4 - Bueno</option>
+                                <option [value]="5">5 - Excelente</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <label>Título:</label>
+                            <input type="text" [(ngModel)]="resenaForm.titulo" placeholder="Ej: Excelente ubicación" style="width: 100%; padding: 6px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <label>Comentario:</label>
+                            <textarea [(ngModel)]="resenaForm.texto" placeholder="Cuéntanos tu experiencia..." rows="4" style="width: 100%; padding: 6px; box-sizing: border-box;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button (click)="addResena()" style="background: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Enviar</button>
+                            <button (click)="showResenaForm = false" style="background: #ccc; color: #333; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Cancelar</button>
                         </div>
                     </div>
                 </div>

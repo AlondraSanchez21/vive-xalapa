@@ -77,4 +77,8 @@ export class ReservarComponent {
       }
     });
   }
+
+  volver(){
+    this.router.navigate(['/tours']);
+  }
 }

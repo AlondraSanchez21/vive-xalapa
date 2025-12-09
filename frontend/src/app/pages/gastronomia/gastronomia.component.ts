@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth';
+import { ResenasService } from '../../services/resenas.service';
+import { FavoritosService } from '../../services/favoritos.service';
 
 interface Restaurante {
   id: number;
@@ -26,7 +29,7 @@ interface Restaurante {
 @Component({
   selector: 'app-gastronomia',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './gastronomia.component.html',
   styleUrls: ['./gastronomia.component.css']
 })
@@ -47,7 +50,25 @@ export class GastronomiaComponent implements OnInit {
 
   loading = true;
 
-  constructor() {}
+  // Reseñas
+  resenas: any[] = [];
+  showResenaForm: boolean = false;
+  isLoggedIn: boolean = false;
+  usuario: any = null;
+  favoritosIds: string[] = [];
+  resenaForm = { tipo: 'gastronomia', calificacion: 5, titulo: '', texto: '' };
+
+  constructor(
+    private authService: AuthService,
+    private resenasService: ResenasService,
+    private favoritosService: FavoritosService
+  ) {
+    this.authService.isLoggedIn$.subscribe(logged => this.isLoggedIn = logged);
+    this.authService.usuario$.subscribe(user => this.usuario = user);
+    this.favoritosService.favoritos$.subscribe((favs: string[]) => {
+      this.favoritosIds = favs;
+    });
+  }
 
   ngOnInit() {
     this.cargarRestaurantes();
@@ -119,11 +140,45 @@ export class GastronomiaComponent implements OnInit {
   abrirModal(restaurante: Restaurante) {
     this.restauranteSeleccionado = restaurante;
     this.mostrarModal = true;
+    this.loadResenasForRestaurante(restaurante.id);
+    this.showResenaForm = false;
+    this.resenaForm = { tipo: 'gastronomia', calificacion: 5, titulo: '', texto: '' };
   }
 
   cerrarModal() {
     this.mostrarModal = false;
     this.restauranteSeleccionado = null;
+    this.resenas = [];
+  }
+
+  loadResenasForRestaurante(restauranteId: number) {
+    this.resenasService.getResenas('gastronomia', restauranteId).subscribe({
+      next: (data: any) => this.resenas = data,
+      error: () => this.resenas = []
+    });
+  }
+
+  addResena() {
+    if (!this.resenaForm.titulo.trim() || !this.resenaForm.texto.trim()) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+    const resena: any = {
+      usuario_id: this.usuario?.id,
+      tipo: 'gastronomia' as const,
+      producto_id: this.restauranteSeleccionado?.id || 0,
+      calificacion: this.resenaForm.calificacion,
+      titulo: this.resenaForm.titulo,
+      texto: this.resenaForm.texto
+    };
+    this.resenasService.createResena(resena).subscribe({
+      next: () => {
+        this.loadResenasForRestaurante(this.restauranteSeleccionado?.id || 0);
+        this.showResenaForm = false;
+        this.resenaForm = { tipo: 'gastronomia', calificacion: 5, titulo: '', texto: '' };
+      },
+      error: () => alert('Error al guardar el comentario')
+    });
   }
 
   abrirEnMaps() {
@@ -138,5 +193,29 @@ export class GastronomiaComponent implements OnInit {
 
   agregarAlCarrito() {
     alert('Restaurante agregado al carrito');
+  }
+
+  toggleFavorito(restauranteId: any) {
+    if (!this.isLoggedIn) {
+      alert('Debes iniciar sesión para agregar favoritos');
+      return;
+    }
+    
+    const restauranteIdStr = String(restauranteId);
+    if (this.favoritosIds.includes(restauranteIdStr)) {
+      this.favoritosService.eliminarFavorito(restauranteIdStr).subscribe(
+        () => console.log('Eliminado de favoritos'),
+        (err) => console.error('Error:', err)
+      );
+    } else {
+      this.favoritosService.agregarFavorito(restauranteIdStr).subscribe(
+        () => console.log('Agregado a favoritos'),
+        (err) => console.error('Error:', err)
+      );
+    }
+  }
+
+  isFavorito(restauranteId: any): boolean {
+    return this.favoritosIds.includes(String(restauranteId));
   }
 }

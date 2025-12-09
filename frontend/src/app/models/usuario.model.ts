@@ -8,6 +8,7 @@ export interface Usuario {
   fotoPerfil?: string;
   fechaRegistro?: Date;
   contrasena?: string;
+  rol?: 'admin' | 'usuario' | string;
 }
 
 export interface PerfilUsuario extends Usuario {

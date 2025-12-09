@@ -38,8 +38,11 @@
                     <div *ngIf="tour.precioAntes" class="old">${{ tour.precioAntes }} MXN</div>
                     <div class="price">Desde <strong>${{ tour.precio }} MXN</strong></div>
                 </div>
-                <div>
+                <div style="display: flex; gap: 8px;">
                     <button class="ver-btn" (click)="verDetalles(tour)">Ver más</button>
+                    <button (click)="toggleFavorito(tour.id)" class="btn-favorito" [ngClass]="{'favorito': isFavorito(tour.id)}" style="padding: 8px 12px; font-size: 16px; border: none; cursor: pointer; border-radius: 4px; background: #f0f0f0;">
+                        {{ isFavorito(tour.id) ? '❤️' : '🤍' }}
+                    </button>
                 </div>
             </div>
 
@@ -94,18 +97,91 @@
                     <h3>Desde <span>${{ tourSeleccionado.precio }} MXN</span></h3>
                 </div>
 
-                <div class="inputs">
+                <div class="inputs" *ngIf="!showDisponibilidad">
                     <label>Cantidad</label>
-                    <select>
-                        <option *ngFor="let n of [1,2,3,4,5]"> {{n}} persona(s) </option>
+                    <select [(ngModel)]="cantidadSeleccionada">
+                        <option *ngFor="let n of [1,2,3,4,5]" [value]="n"> {{n}} persona(s) </option>
                     </select>
 
                     <label>Fecha</label>
-                    <input type="date">
+                    <input type="date" [(ngModel)]="fechaSeleccionada">
                 </div>
 
-                <button class="btn-reservar" (click)="reservar()">Ver disponibilidad</button>
+                <button class="btn-reservar" *ngIf="!showDisponibilidad" (click)="reservar()">Ver disponibilidad</button>
 
+                <!-- Panel de disponibilidad / formulario dentro del modal -->
+                <div *ngIf="showDisponibilidad" class="disponibilidad-panel">
+                    <div class="card">
+                        <h4>Disponibilidad y detalles</h4>
+                        <p><strong>Fecha seleccionada:</strong> {{ fechaSeleccionada || '—' }}</p>
+                        <p><strong>Personas:</strong> {{ cantidadSeleccionada }}</p>
+                        <p><strong>Total:</strong> ${{ (tourSeleccionado.precio || 0) * cantidadSeleccionada }} MXN</p>
+                    </div>
+
+                    <div class="card" style="margin-top:10px;">
+                        <h4>Datos del cliente</h4>
+                        <label>Nombre</label>
+                        <input type="text" [(ngModel)]="clienteNombre" placeholder="Nombre" />
+                        <label>Apellidos</label>
+                        <input type="text" [(ngModel)]="clienteApellido" placeholder="Apellidos" />
+                        <label>Teléfono</label>
+                        <input type="text" [(ngModel)]="clienteTelefono" placeholder="Teléfono" />
+                        <label>Correo</label>
+                        <input type="email" [(ngModel)]="clienteEmail" placeholder="Correo electrónico" />
+
+                        <div style="margin-top:10px; display:flex; gap:8px;">
+                            <button class="btn-primary" (click)="confirmarReserva()">Confirmar reserva</button>
+                            <button class="btn-secondary" (click)="cancelarDisponibilidad()">Cancelar</button>
+                            <button class="btn-secondary" (click)="abrirPaginaReserva()">Abrir en página de reserva</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMENTARIOS Y CALIFICACIONES -->
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">Comentarios ({{ resenas.length }})</h4>
+
+                <div class="resenas-list" *ngIf="resenas.length > 0; else noResenas">
+                    <div class="resena-item" *ngFor="let r of resenas" style="border: 1px solid #ddd; padding: 10px; margin: 8px 0; border-radius: 4px; font-size: 13px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <strong>{{ r.usuario_nombre }}</strong>
+                            <span style="color: #ff9800;">★ {{ r.calificacion }}</span>
+                        </div>
+                        <p style="font-size: 11px; color: #999; margin: 4px 0;">{{ r.created_at | date: 'short' }}</p>
+                        <p style="font-weight: bold; margin: 4px 0;">{{ r.titulo }}</p>
+                        <p style="margin: 4px 0;">{{ r.texto }}</p>
+                    </div>
+                </div>
+                <ng-template #noResenas>
+                    <p style="color: #999; font-size: 13px;">No hay comentarios aún.</p>
+                </ng-template>
+
+                <!-- Formulario para agregar comentario -->
+                <div *ngIf="isLoggedIn" style="margin-top: 12px; background: #f5f5f5; padding: 10px; border-radius: 4px;">
+                    <button *ngIf="!showResenaForm" (click)="showResenaForm = true" style="background: #2196F3; color: white; padding: 6px 12px; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">Agregar comentario</button>
+
+                    <div *ngIf="showResenaForm">
+                        <div style="margin-bottom: 6px;">
+                            <label style="font-size: 12px;">★ Calificación:</label>
+                            <select [(ngModel)]="resenaForm.calificacion" style="width: 100%; padding: 4px; font-size: 12px;">
+                                <option [value]="1">1 - Muy malo</option>
+                                <option [value]="2">2 - Malo</option>
+                                <option [value]="3">3 - Regular</option>
+                                <option [value]="4">4 - Bueno</option>
+                                <option [value]="5">5 - Excelente</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 6px;">
+                            <input type="text" [(ngModel)]="resenaForm.titulo" placeholder="Título..." style="width: 100%; padding: 4px; font-size: 12px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 6px;">
+                            <textarea [(ngModel)]="resenaForm.texto" placeholder="Tu comentario..." rows="3" style="width: 100%; padding: 4px; font-size: 12px; box-sizing: border-box;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button (click)="addResena()" style="background: #4CAF50; color: white; padding: 6px 12px; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">Enviar</button>
+                            <button (click)="showResenaForm = false" style="background: #ddd; color: #333; padding: 6px 12px; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="beneficios">
                     <p>✔ Cancelación gratuita</p>
