@@ -25,11 +25,11 @@ export const getTour = async(req, res) => {
 
 export const createTour = async(req, res) => {
     try {
-        const { nombre, descripcion, ubicacion, precioBase, precioAntes, duracion, idiomas, incluye, horarios, calificacion } = req.body;
+        const { nombre, descripcion, ubicacion, precio_base, precio_antes, duracion, idiomas, incluye, horarios, calificacion } = req.body;
         const imagen = req.file ? '/uploads/' + req.file.filename : req.body.imagen;
         const conn = await db.getConnection();
         const result = await conn.query(
-            "INSERT INTO tours (nombre, descripcion, ubicacion, precioBase, precioAntes, imagen, duracion, idiomas, incluye, horarios, calificacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, ubicacion, precioBase, precioAntes, imagen, duracion, JSON.stringify(idiomas), JSON.stringify(incluye), JSON.stringify(horarios), calificacion]
+            "INSERT INTO tours (nombre, descripcion, ubicacion, precio_base, precio_antes, imagen, duracion, idiomas, incluye, horarios, calificacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, ubicacion, precio_base, precio_antes, imagen, duracion, JSON.stringify(idiomas), JSON.stringify(incluye), JSON.stringify(horarios), calificacion]
         );
         conn.release();
         res.json({ id: result[0].insertId, ...req.body });
@@ -41,11 +41,11 @@ export const createTour = async(req, res) => {
 export const updateTour = async(req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, ubicacion, precioBase, precioAntes, duracion, idiomas, incluye, horarios, calificacion } = req.body;
+        const { nombre, descripcion, ubicacion, precio_base, precio_antes, duracion, idiomas, incluye, horarios, calificacion } = req.body;
         const imagen = req.file ? '/uploads/' + req.file.filename : req.body.imagen;
         const conn = await db.getConnection();
         await conn.query(
-            "UPDATE tours SET nombre=?, descripcion=?, ubicacion=?, precioBase=?, precioAntes=?, imagen=?, duracion=?, idiomas=?, incluye=?, horarios=?, calificacion=? WHERE id=?", [nombre, descripcion, ubicacion, precioBase, precioAntes, imagen, duracion, JSON.stringify(idiomas), JSON.stringify(incluye), JSON.stringify(horarios), calificacion, id]
+            "UPDATE tours SET nombre=?, descripcion=?, ubicacion=?, precio_base=?, precio_antes=?, imagen=?, duracion=?, idiomas=?, incluye=?, horarios=?, calificacion=? WHERE id=?", [nombre, descripcion, ubicacion, precio_base, precio_antes, imagen, duracion, JSON.stringify(idiomas), JSON.stringify(incluye), JSON.stringify(horarios), calificacion, id]
         );
         conn.release();
         res.json({ id, ...req.body });

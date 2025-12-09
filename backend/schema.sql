@@ -139,3 +139,4 @@ INSERT INTO gastronomias (nombre, descripcion, ubicacion, precioPromedio, imagen
 ('Restaurante Casa Vieja', 'Comida tradicional veracruzana', 'Centro', 350.00, '/assets/gastro1.jpg', 'Veracruzana', '12:00-23:00', '2281234567'),
 ('Café del Portal', 'Café especializado artesanal', 'Portal', 150.00, '/assets/gastro2.jpg', 'Café', '08:00-20:00', '2281234568'),
 ('La Chalupa Dorada', 'Mariscos frescos diarios', 'Puerto', 450.00, '/assets/gastro3.jpg', 'Mariscos', '11:00-23:00', '2281234569');
+

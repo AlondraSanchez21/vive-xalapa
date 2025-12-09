@@ -25,12 +25,12 @@ export const getHotel = async(req, res) => {
 
 export const createHotel = async(req, res) => {
     try {
-        const { nombre, descripcion, ubicacion, precioBase, precioAntes, calificacion, habitaciones, amenidades } = req.body;
+        const { nombre, descripcion, ubicacion, precio_base, precio_antes, calificacion, habitaciones, amenidades } = req.body;
         // if file uploaded, use its path
         const imagen = req.file ? '/uploads/' + req.file.filename : req.body.imagen;
         const conn = await db.getConnection();
         const result = await conn.query(
-            "INSERT INTO hoteles (nombre, descripcion, ubicacion, precioBase, precioAntes, imagen, calificacion, habitaciones, amenidades) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, ubicacion, precioBase, precioAntes, imagen, calificacion, habitaciones, JSON.stringify(amenidades)]
+            "INSERT INTO hoteles (nombre, descripcion, ubicacion, precio_base, precio_antes, imagen, calificacion, habitaciones, amenidades) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, ubicacion, precio_base, precio_antes, imagen, calificacion, habitaciones, JSON.stringify(amenidades)]
         );
         conn.release();
         res.json({ id: result[0].insertId, ...req.body });
@@ -42,11 +42,11 @@ export const createHotel = async(req, res) => {
 export const updateHotel = async(req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, ubicacion, precioBase, precioAntes, calificacion, habitaciones, amenidades } = req.body;
+        const { nombre, descripcion, ubicacion, precio_base, precio_antes, calificacion, habitaciones, amenidades } = req.body;
         const imagen = req.file ? '/uploads/' + req.file.filename : req.body.imagen;
         const conn = await db.getConnection();
         await conn.query(
-            "UPDATE hoteles SET nombre=?, descripcion=?, ubicacion=?, precioBase=?, precioAntes=?, imagen=?, calificacion=?, habitaciones=?, amenidades=? WHERE id=?", [nombre, descripcion, ubicacion, precioBase, precioAntes, imagen, calificacion, habitaciones, JSON.stringify(amenidades), id]
+            "UPDATE hoteles SET nombre=?, descripcion=?, ubicacion=?, precio_base=?, precio_antes=?, imagen=?, calificacion=?, habitaciones=?, amenidades=? WHERE id=?", [nombre, descripcion, ubicacion, precio_base, precio_antes, imagen, calificacion, habitaciones, JSON.stringify(amenidades), id]
         );
         conn.release();
         res.json({ id, ...req.body });

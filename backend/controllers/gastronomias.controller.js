@@ -25,11 +25,11 @@ export const getGastronomia = async(req, res) => {
 
 export const createGastronomia = async(req, res) => {
     try {
-        const { nombre, descripcion, ubicacion, precioPromedio, tipoComida, horarios, telefono } = req.body;
+        const { nombre, descripcion, ubicacion, precio_promedio, tipo_comida, horarios, telefono } = req.body;
         const imagen = req.file ? '/uploads/' + req.file.filename : req.body.imagen;
         const conn = await db.getConnection();
         const result = await conn.query(
-            "INSERT INTO gastronomias (nombre, descripcion, ubicacion, precioPromedio, imagen, tipoComida, horarios, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, ubicacion, precioPromedio, imagen, tipoComida, horarios, telefono]
+            "INSERT INTO gastronomias (nombre, descripcion, ubicacion, precio_promedio, imagen, tipo_comida, horarios, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, ubicacion, precio_promedio, imagen, tipo_comida, horarios, telefono]
         );
         conn.release();
         res.json({ id: result[0].insertId, ...req.body });
@@ -41,11 +41,11 @@ export const createGastronomia = async(req, res) => {
 export const updateGastronomia = async(req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, ubicacion, precioPromedio, tipoComida, horarios, telefono } = req.body;
+        const { nombre, descripcion, ubicacion, precio_promedio, tipo_comida, horarios, telefono } = req.body;
         const imagen = req.file ? '/uploads/' + req.file.filename : req.body.imagen;
         const conn = await db.getConnection();
         await conn.query(
-            "UPDATE gastronomias SET nombre=?, descripcion=?, ubicacion=?, precioPromedio=?, imagen=?, tipoComida=?, horarios=?, telefono=? WHERE id=?", [nombre, descripcion, ubicacion, precioPromedio, imagen, tipoComida, horarios, telefono, id]
+            "UPDATE gastronomias SET nombre=?, descripcion=?, ubicacion=?, precio_promedio=?, imagen=?, tipo_comida=?, horarios=?, telefono=? WHERE id=?", [nombre, descripcion, ubicacion, precio_promedio, imagen, tipo_comida, horarios, telefono, id]
         );
         conn.release();
         res.json({ id, ...req.body });
