@@ -25,10 +25,10 @@ export const getViaje = async(req, res) => {
 
 export const createViaje = async(req, res) => {
     try {
-        const { nombre, descripcion, origen, destino, precioBase, precioAntes, imagen, fechaSalida, hora, duracion, tipoTransporte, asientos } = req.body;
+        const { nombre, descripcion, origen, destino, precio_base, precio_antes, imagen, fecha_salida, hora_salida, duracion, tipo_transporte, asientos_disponibles } = req.body;
         const conn = await db.getConnection();
         const result = await conn.query(
-            "INSERT INTO viajes (nombre, descripcion, origen, destino, precioBase, precioAntes, imagen, fechaSalida, hora, duracion, tipoTransporte, asientos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, origen, destino, precioBase, precioAntes, imagen, fechaSalida, hora, duracion, tipoTransporte, asientos]
+            "INSERT INTO viajes (nombre, descripcion, origen, destino, precio_base, precio_antes, imagen, fecha_salida, hora_salida, duracion, tipo_transporte, asientos_disponibles) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, origen, destino, precio_base, precio_antes, imagen, fecha_salida, hora_salida, duracion, tipo_transporte, asientos_disponibles]
         );
         conn.release();
         res.json({ id: result[0].insertId, ...req.body });
@@ -40,10 +40,10 @@ export const createViaje = async(req, res) => {
 export const updateViaje = async(req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, origen, destino, precioBase, precioAntes, imagen, fechaSalida, hora, duracion, tipoTransporte, asientos } = req.body;
+        const { nombre, descripcion, origen, destino, precio_base, precio_antes, imagen, fecha_salida, hora_salida, duracion, tipo_transporte, asientos_disponibles } = req.body;
         const conn = await db.getConnection();
         await conn.query(
-            "UPDATE viajes SET nombre=?, descripcion=?, origen=?, destino=?, precioBase=?, precioAntes=?, imagen=?, fechaSalida=?, hora=?, duracion=?, tipoTransporte=?, asientos=? WHERE id=?", [nombre, descripcion, origen, destino, precioBase, precioAntes, imagen, fechaSalida, hora, duracion, tipoTransporte, asientos, id]
+            "UPDATE viajes SET nombre=?, descripcion=?, origen=?, destino=?, precio_base=?, precio_antes=?, imagen=?, fecha_salida=?, hora_salida=?, duracion=?, tipo_transporte=?, asientos_disponibles=? WHERE id=?", [nombre, descripcion, origen, destino, precio_base, precio_antes, imagen, fecha_salida, hora_salida, duracion, tipo_transporte, asientos_disponibles, id]
         );
         conn.release();
         res.json({ id, ...req.body });
