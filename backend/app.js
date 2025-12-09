@@ -9,7 +9,9 @@ import viajesRoutes from "./routes/viajes.routes.js";
 import gastronomiasRoutes from "./routes/gastronomias.routes.js";
 import usuariosRoutes from "./routes/usuarios.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import resenasRoutes from "./routes/resenas.routes.js";
 import reservasRoutes from "./routes/reservas.routes.js";
+import favoritosRoutes from "./routes/favoritos.routes.js";
 
 const app = express();
 
@@ -31,6 +33,8 @@ app.use("/api/viajes", viajesRoutes);
 app.use("/api/gastronomias", gastronomiasRoutes);
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/resenas", resenasRoutes);
 app.use("/api/reservas", reservasRoutes);
+app.use("/api/favoritos", favoritosRoutes);
 
 app.listen(3000, () => console.log("Backend corriendo en puerto 3000"));
